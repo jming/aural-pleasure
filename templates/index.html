@@ -226,12 +226,6 @@
 
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript">
-      d3.xml("../static/resources/playlists_artist_graph.gexf", "application/xml", function(gexf) {
-        console.log(gexf);
-   
-      });
-    </script>
-    <script>
       
       var width = 500,
           height = 500;
@@ -247,28 +241,65 @@
           .attr("width", width)
           .attr("height", height);
 
-      d3.json("../static/resources/miserables.json", function(error, graph) {
+      d3.xml("../static/resources/playlists_artist_graph.gexf", "application/xml", function(gexf) {
+
+        console.log('gexf');
+        // console.log(gexf.documentElement.getElementsByTagName('node'));
+
+        var xml_nodes = gexf.documentElement.getElementsByTagName('node');
+
+        console.log(xml_nodes);
+
+        var nodes = new Array();
+
+        for (n in xml_nodes) {
+          // console.log(xml_nodes[node].id);
+          node = xml_nodes[n];
+          // console.log(node);
+          nodes.push({
+            name: node.id
+          });
+        }
+
+        var links = new Array();
+
+        var xml_links = gexf.documentElement.getElementsByTagName('edge');
+
+        console.log(xml_links);
+
+        for (l in xml_links) {
+          link = xml_links[l];
+          // console.log(link);
+          links.push({
+            source: link.source,
+            target: link.target,
+            value: link.weight
+          })
+        }
+
         force
-            .nodes(graph.nodes)
-            .links(graph.links)
-            .start();
+          .nodes(nodes)
+          .links(links)
+          .start();
 
-        var link = svg.selectAll(".link")
-            .data(graph.links)
-          .enter().append("line")
-            .attr("class", "link")
-            .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+        var link = svg.selectAll('.link')
+          .data(links)
+          .enter()
+          .append('circle')
+          .attr('class', 'link')
+          .style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
-        var node = svg.selectAll(".node")
-            .data(graph.nodes)
+        var node = svg.selectAll('.node')
+          .data(nodes)
           .enter().append("circle")
-            .attr("class", "node")
-            .attr("r", 5)
-            .style("fill", function(d) { return color(d.group); })
-            .call(force.drag);
+          .attr("class", "node")
+          .attr("r", 5)
+          // .style("fill", function(d) { return color(d.group); })
+          .style('fill', 'blue')
+          .call(force.drag);
 
         node.append("title")
-            .text(function(d) { return d.name; });
+          .text(function(d) { return d.name; });
 
         force.on("tick", function() {
           link.attr("x1", function(d) { return d.source.x; })
@@ -279,7 +310,52 @@
           node.attr("cx", function(d) { return d.x; })
               .attr("cy", function(d) { return d.y; });
         });
+
+        node.attr("cx", function(d) { return d.x; })
+          .attr("cy", function(d) { return d.y; });
+
       });
+
+      // d3.json("../static/resources/miserables.json", function(error, graph) {
+      //   console.log("json");
+      //   console.log(graph.nodes);
+      //   console.log(graph.links)
+
+      //   for (node in graph.nodes) {
+      //     console.log(graph.nodes[node].index)
+        // }
+        // force
+        //     .nodes(graph.nodes)
+        //     .links(graph.links)
+        //     .start();
+
+        // var link = svg.selectAll(".link")
+        //     .data(graph.links)
+        //   .enter().append("line")
+        //     .attr("class", "link")
+        //     .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+        // var node = svg.selectAll(".node")
+        //     .data(graph.nodes)
+        //   .enter().append("circle")
+        //     .attr("class", "node")
+        //     .attr("r", 5)
+        //     .style("fill", function(d) { return color(d.group); })
+        //     .call(force.drag);
+
+        // node.append("title")
+        //     .text(function(d) { return d.name; });
+
+        // force.on("tick", function() {
+        //   link.attr("x1", function(d) { return d.source.x; })
+        //       .attr("y1", function(d) { return d.source.y; })
+        //       .attr("x2", function(d) { return d.target.x; })
+        //       .attr("y2", function(d) { return d.target.y; });
+
+        //   node.attr("cx", function(d) { return d.x; })
+        //       .attr("cy", function(d) { return d.y; });
+        // });
+      // });
 
     </script>
   </body>
