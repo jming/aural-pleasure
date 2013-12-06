@@ -227,8 +227,8 @@
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript">
       
-      var width = 500,
-          height = 500;
+      var width = 1000,
+          height = 1000;
 
       var color = d3.scale.category20();
 
@@ -243,23 +243,28 @@
 
       d3.xml("../static/resources/playlists_artist_graph.gexf", "application/xml", function(gexf) {
 
-        console.log('gexf');
+        // console.log('gexf');
         // console.log(gexf.documentElement.getElementsByTagName('node'));
 
         var xml_nodes = gexf.documentElement.getElementsByTagName('node');
 
-        console.log(xml_nodes);
-
+        // console.log(xml_nodes);
+        var node_names = new Array();
         var nodes = new Array();
 
         for (n in xml_nodes) {
+        // for (n =0; n < 10; n++) {
           // console.log(xml_nodes[node].id);
           node = xml_nodes[n];
           // console.log(node);
           nodes.push({
             name: node.id
           });
+
+          node_names.push(node.id);
         }
+
+        console.log(nodes);
 
         var links = new Array();
 
@@ -267,15 +272,22 @@
 
         console.log(xml_links);
 
-        for (l in xml_links) {
+        // for (l in xml_links) {
+        for (l=0; l < xml_links.length-1; l++) {
           link = xml_links[l];
-          // console.log(link);
+          console.log(link.id);
+          // console.log(link.id, link.getAttribute('source'), link.target, link.weight)
+          var source_name = link.getAttribute('source');
+          var target_name = link.getAttribute('target');
           links.push({
-            source: link.source,
-            target: link.target,
-            value: link.weight
+            source: node_names.indexOf(source_name),
+            target: node_names.indexOf(target_name),
+            value: link.getAttribute('weight')
+            // value: 1
           })
         }
+
+        console.log(links);
 
         force
           .nodes(nodes)
@@ -285,7 +297,7 @@
         var link = svg.selectAll('.link')
           .data(links)
           .enter()
-          .append('circle')
+          .append('line')
           .attr('class', 'link')
           .style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
@@ -295,7 +307,7 @@
           .attr("class", "node")
           .attr("r", 5)
           // .style("fill", function(d) { return color(d.group); })
-          .style('fill', 'blue')
+          .style('fill', function(d) { return 'blue'; })
           .call(force.drag);
 
         node.append("title")
