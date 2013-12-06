@@ -25,6 +25,11 @@
 
     <!-- Custom styles for this template -->
     <link href="../static/css/carousel.css" rel="stylesheet">
+
+    <!---for novus-->
+    <link href="../novus/src/nv.d3.css" rel="stylesheet" type="text/css">
+
+
     <style>
       .node {
         stroke: #fff;
@@ -168,15 +173,18 @@
           <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
           <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
         </div>
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        <div class="col-md-5" >
+           <div id="test10" style="height: 500px;">
+            Lots of series
+            <svg></svg>
+          </div>
         </div>
       </div>
 
       <hr class="featurette-divider" id="artist">
 
       <div class="row featurette">
-        <div class="col-md-5" id="artist-d3">
+        <div class="col-md-5" id="artist-d3" >
           <!-- <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
         </div>
         <div class="col-md-7">
@@ -371,8 +379,163 @@
 
     </script>
 
-    <script type="text/javascript">
-    </script>
+
+
+<script src="../novus/lib/d3.v3.js"></script>
+<!--<script src="../lib/fisheye.js"></script>-->
+<script src="../novus/nv.d3.js"></script>
+<script src="../novus/src/tooltip.js"></script>
+<script src="../novus/src/utils.js"></script>
+<script src="../novus/src/models/legend.js"></script>
+<script src="../novus/src/models/axis.js"></script>
+<script src="../novus/src/models/distribution.js"></script>
+<script src="../novus/src/models/scatter.js"></script>
+<script src="../novus/src/models/scatterChart.js"></script>
+<script src="../novus/src/models/scatterPlusLineChart.js"></script>
+<script src="testScript.js"></script>
+<script>
+
+defaultChartTest("test1", randomData(4,40));
+defaultChartTest("test2", randomData(1,5), {left:0});
+defaultChartTest("test3", randomData(2,200), {right: 0});
+defaultChartTest("test4", randomData(2, 8), {top:40, right: 90, bottom: 150, left: 150});
+defaultChartTest("test5", randomData(0,0));
+defaultChartTest("test6", randomData(1,1));
+defaultChartTest("test7", randomData(1,2));
+defaultChartTest("test8", randomData(3,1));
+defaultChartTest("test9", [
+  {key: "Group 0", values: []},
+  {key: "Group 1", values: [{x:1, y:1}]} 
+]);
+
+defaultChartTest("test10", randomData(30,2));
+
+scatterPlusLineTest("test11", randomDataSloped(2,0));
+scatterPlusLineTest("test12", randomDataSloped(2,10));
+scatterPlusLineTest("test13", randomDataSloped(-0.5,1));
+defaultChartTest("test14", [
+{key: "Duplicate Y",
+     values: [
+        {x: 0, y: 10}, {x:1, y:10},{x:2, y:10},{x:3, y:10}
+     ]
+    }
+]);
+
+defaultChartTest("test15",[
+   {key: "Duplicate X",
+      area: true,
+      values: [
+        {x: 4, y: 10},
+        {x: 4, y: 11},
+        {x: 4, y: 12},
+        {x: 4, y: 13}
+      ]
+    }
+]);
+
+defaultChartTest("test16",tinyPoints());
+
+function defaultChartTest(container, data, margin) {
+  nv.addGraph(function() {
+    var chart;
+    chart = nv.models.scatterChart()
+                  .showDistX(true).showDistY(true)
+                  ;
+    chart.xAxis.tickFormat(d3.format('.02f'));
+    chart.yAxis.tickFormat(d3.format('.02f'));
+    if (margin) {
+      chart.margin(margin);
+    }
+    chart.tooltipContent(function(key) {
+        return "<h3>" + key + "</h3>";
+    });
+    d3.select('#' + container + ' svg').datum(data).transition().duration(500).call(chart);
+    nv.utils.windowResize(chart.update);
+    return chart;
+  });
+}
+
+function scatterPlusLineTest(container, data) {
+  nv.addGraph(function() {
+    var chart;
+    chart = nv.models.scatterPlusLineChart()
+                  .showDistX(true).showDistY(true);
+    chart.xAxis.tickFormat(d3.format('.02f'));
+    chart.yAxis.tickFormat(d3.format('.02f'));
+    chart.tooltipContent(function(key) {
+        return "<h3>" + key + "</h3>";
+    });
+    d3.select('#' + container + ' svg').datum(data).transition().duration(500).call(chart);
+    nv.utils.windowResize(chart.update);
+    return chart;
+  });
+}
+
+
+function randomData(groups, points) { //# groups,# points per group
+  var data = [],
+      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+      random = d3.random.normal();
+
+  for (i = 0; i < groups; i++) {
+    data.push({
+      key: 'Group ' + i,
+      values: []
+    });
+
+    for (j = 0; j < points; j++) {
+      data[i].values.push({
+        x: random(), 
+        y: random(), 
+        size: Math.random(), 
+        shape: shapes[j % 6]
+      });
+    }
+  }
+
+  return data;
+}
+
+
+function randomDataSloped(slope,intercept) { //# groups,# points per group
+  var data = [],
+      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+      random = d3.random.normal();
+
+  var groups = 2, points = 10;
+  for (i = 0; i < groups; i++) {
+    data.push({
+      key: 'Group ' + i,
+      values: [],
+      slope: slope,
+      intercept: intercept
+    });
+
+    for (j = 0; j < points; j++) {
+      data[i].values.push({
+        x: random(), 
+        y: random(), 
+        size: Math.random(), 
+        shape: shapes[j % 6]
+      });
+    }
+  }
+
+  return data;
+}
+
+
+function tinyPoints() {
+  var rval = {key: "Tiny points", values: []};
+  for(var i =1; i < 20; i++) {
+    rval.values.push({
+       x: Math.random() * 1e-10,
+       y: Math.random() * 1e-10
+    });
+  }
+  return [rval];
+}
+</script>
 
   </body>
 </html>
