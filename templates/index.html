@@ -225,6 +225,12 @@
     <script src="../static/js/holder.js"></script>
 
     <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript">
+      d3.xml("../static/resources/playlists_artist_graph.gexf", "application/xml", function(gexf) {
+        console.log(gexf);
+   
+      });
+    </script>
     <script>
       
       var width = 500,
