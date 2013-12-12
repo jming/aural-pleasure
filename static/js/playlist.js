@@ -119,12 +119,7 @@ d3.xml("../static/resources/songs_top_attr.gexf", "application/xml", function(ge
     // .attr("r", 5)
     .attr('r', function(d) {
       // console.log(d.pagerank, d.pagerank*m + b)
-      var score = d.score*m_score + b_score;
-      if (score == 0) {
-        return MIN_NODE
-      } else {
-        return score;
-      }
+      return 5;
     })
     // .style("fill", function(d) { return color(d.group); })
     .style('fill', function(d) { 
@@ -188,6 +183,9 @@ d3.xml("../static/resources/songs_top_attr.gexf", "application/xml", function(ge
     //     return d.pagerank*m_pagerank + b_pagerank
     //   })
     // }
+    if (size_scheme == 'none') {
+      return 5;
+    }
     if (size_scheme == 'score') {
       node.attr('r', function(d) {
         // console.log(d.pagerank, d.pagerank*m + b)
