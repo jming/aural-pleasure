@@ -236,151 +236,7 @@
     <script src="../static/js/holder.js"></script>
 
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript">
-      
-      var width = 1000,
-          height = 1000;
-
-      var color = d3.scale.category20();
-
-      var force = d3.layout.force()
-          .charge(-200)
-          .linkDistance(30)
-          .size([width, height]);
-
-      var svg = d3.select("#artist-d3").append("svg")
-          .attr("width", width)
-          .attr("height", height);
-
-      // var colors = ['#3366FF', '#6633FF', '#C3F', '#F3C', '#3CF', '#003DF5', '#002EB8', '#F36', '#3FC', '#B88A00', '#F5B800', '#F63', '#3F6', '#6F3', '#CF3', '#FC3', '#FF3', '#3FC'];
-
-      var colors = ['#9CF', '#FC9', '#FC9', '#99F', '#C9F', '#F9F', '#9FF', '#5CADFF', '#1F8FFF', '#F9C', '#9FC', '#F8F1F', '#FFAD5C', '#F99', '#9F9', '#CF9', '#FF9', '#FC9', '#FC9']
-
-      d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", function(gexf) {
-      // d3.xml("../static/resources/playlists_artist_graph.gexf", "application/xml", function(gexf) {
-        // d3.xml("../static/resources/artist_")
-
-        // console.log('gexf');
-        // console.log(gexf.documentElement.getElementsByTagName('node'));
-
-        var xml_nodes = gexf.documentElement.getElementsByTagName('node');
-
-        console.log(xml_nodes);
-        var node_names = new Array();
-        var nodes = new Array();
-
-        for (n = 0; n< xml_nodes.length; n++) {
-        // for (n in xml_nodes) {
-          // console.log(n);
-          // console.log('stop');
-        // for (n =0; n < 10; n++) {
-          // console.log(xml_nodes[node].id);
-          node = xml_nodes[n];
-          // console.log(node);
-          // if (n != 210)
-          attrs = node.getElementsByTagName('attvalue')
-          // else
-            // attrs = ['no-genre', 0, 0, 0]
-          // console.log(attrs[0].getAttribute('value'))
-          nodes.push({
-            name: node.id,
-            genre: attrs[0].getAttribute('value'),
-            pagerank: attrs[1].getAttribute('value'),
-            modularity: attrs[2].getAttribute('value'),
-            score: attrs[3].getAttribute('value')
-          });
-
-          node_names.push(node.id);
-        }
-
-        console.log(nodes);
-
-        var links = new Array();
-
-        var xml_links = gexf.documentElement.getElementsByTagName('edge');
-
-        console.log(xml_links);
-
-        // for (l in xml_links) {
-        for (l=0; l < xml_links.length-1; l++) {
-          link = xml_links[l];
-          // console.log(link);
-          // console.log(link.id, link.getAttribute('source'), link.target, link.weight)
-          var source_name = link.getAttribute('source');
-          var target_name = link.getAttribute('target');
-          // console.log(source_name, target_name)
-          links.push({
-            source: node_names.indexOf(source_name),
-            target: node_names.indexOf(target_name),
-            value: link.getAttribute('weight')
-            // value: 1
-          })
-        }
-
-        console.log('links', links);
-
-        console.log('-----');
-        for (node in nodes) {
-          if (nodes[node] == undefined) {
-            console.log('derp' + node);
-          }
-        }
-
-        for (link in links) {
-          if (links[link] == undefined) {
-            console.log('herp' + link);
-          }
-        }
-        console.log('-----');
-
-        var link = svg.selectAll('.link')
-          .data(links)
-          .enter()
-          .append('line')
-          .attr('class', 'link')
-          .style("stroke-width", function(d) { return Math.sqrt(d.value); });
-
-        console.log('link', link);
-
-        var node = svg.selectAll('.node')
-          .data(nodes)
-          .enter().append("circle")
-          .attr("class", "node")
-          .attr("r", 5)
-          // .style("fill", function(d) { return color(d.group); })
-          .style('fill', function(d) { 
-            console.log(d.modularity)
-            return colors[d.modularity]; 
-          })
-          .call(force.drag);
-
-        node.append("title")
-          .text(function(d) { return d.name; });
-
-        node.attr("cx", function(d) { return d.x; })
-          .attr("cy", function(d) { return d.y; });
-
-        console.log('node', node);
-
-        force
-          .nodes(nodes)
-          .links(links)
-          // .on("tick", tick)
-          .start();
-
-        console.log('force');
-
-        force.on("tick", function() {
-          link.attr("x1", function(d) { return d.source.x; })
-              .attr("y1", function(d) { return d.source.y; })
-              .attr("x2", function(d) { return d.target.x; })
-              .attr("y2", function(d) { return d.target.y; });
-
-          node.attr("cx", function(d) { return d.x; })
-              .attr("cy", function(d) { return d.y; });
-        });
-
-      });
+    <script src="../static/js/app.js">
 
       // d3.json("../static/resources/miserables.json", function(error, graph) {
       //   console.log("json");
@@ -424,6 +280,162 @@
       // });
 
     </script>
+
+    <script src="../novus/lib/d3.v3.js"></script>
+<!--<script src="../lib/fisheye.js"></script>-->
+<script src="../novus/nv.d3.js"></script>
+<script src="../novus/src/tooltip.js"></script>
+<script src="../novus/src/utils.js"></script>
+<script src="../novus/src/models/legend.js"></script>
+<script src="../novus/src/models/axis.js"></script>
+<script src="../novus/src/models/distribution.js"></script>
+<script src="../novus/src/models/scatter.js"></script>
+<script src="../novus/src/models/scatterChart.js"></script>
+<script src="../novus/src/models/scatterPlusLineChart.js"></script>
+<script src="testScript.js"></script>
+<script>
+
+defaultChartTest("test1", randomData(4,40));
+defaultChartTest("test2", randomData(1,5), {left:0});
+defaultChartTest("test3", randomData(2,200), {right: 0});
+defaultChartTest("test4", randomData(2, 8), {top:40, right: 90, bottom: 150, left: 150});
+defaultChartTest("test5", randomData(0,0));
+defaultChartTest("test6", randomData(1,1));
+defaultChartTest("test7", randomData(1,2));
+defaultChartTest("test8", randomData(3,1));
+defaultChartTest("test9", [
+  {key: "Group 0", values: []},
+  {key: "Group 1", values: [{x:1, y:1}]} 
+]);
+
+defaultChartTest("test10", randomData(30,2));
+
+scatterPlusLineTest("test11", randomDataSloped(2,0));
+scatterPlusLineTest("test12", randomDataSloped(2,10));
+scatterPlusLineTest("test13", randomDataSloped(-0.5,1));
+defaultChartTest("test14", [
+{key: "Duplicate Y",
+     values: [
+        {x: 0, y: 10}, {x:1, y:10},{x:2, y:10},{x:3, y:10}
+     ]
+    }
+]);
+
+defaultChartTest("test15",[
+   {key: "Duplicate X",
+      area: true,
+      values: [
+        {x: 4, y: 10},
+        {x: 4, y: 11},
+        {x: 4, y: 12},
+        {x: 4, y: 13}
+      ]
+    }
+]);
+
+defaultChartTest("test16",tinyPoints());
+
+function defaultChartTest(container, data, margin) {
+  nv.addGraph(function() {
+    var chart;
+    chart = nv.models.scatterChart()
+                  .showDistX(true).showDistY(true)
+                  ;
+    chart.xAxis.tickFormat(d3.format('.02f'));
+    chart.yAxis.tickFormat(d3.format('.02f'));
+    if (margin) {
+      chart.margin(margin);
+    }
+    chart.tooltipContent(function(key) {
+        return "<h3>" + key + "</h3>";
+    });
+    d3.select('#' + container + ' svg').datum(data).transition().duration(500).call(chart);
+    nv.utils.windowResize(chart.update);
+    return chart;
+  });
+}
+
+function scatterPlusLineTest(container, data) {
+  nv.addGraph(function() {
+    var chart;
+    chart = nv.models.scatterPlusLineChart()
+                  .showDistX(true).showDistY(true);
+    chart.xAxis.tickFormat(d3.format('.02f'));
+    chart.yAxis.tickFormat(d3.format('.02f'));
+    chart.tooltipContent(function(key) {
+        return "<h3>" + key + "</h3>";
+    });
+    d3.select('#' + container + ' svg').datum(data).transition().duration(500).call(chart);
+    nv.utils.windowResize(chart.update);
+    return chart;
+  });
+}
+
+
+function randomData(groups, points) { //# groups,# points per group
+  var data = [],
+      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+      random = d3.random.normal();
+
+  for (i = 0; i < groups; i++) {
+    data.push({
+      key: 'Group ' + i,
+      values: []
+    });
+
+    for (j = 0; j < points; j++) {
+      data[i].values.push({
+        x: random(), 
+        y: random(), 
+        size: Math.random(), 
+        shape: shapes[j % 6]
+      });
+    }
+  }
+
+  return data;
+}
+
+
+function randomDataSloped(slope,intercept) { //# groups,# points per group
+  var data = [],
+      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+      random = d3.random.normal();
+
+  var groups = 2, points = 10;
+  for (i = 0; i < groups; i++) {
+    data.push({
+      key: 'Group ' + i,
+      values: [],
+      slope: slope,
+      intercept: intercept
+    });
+
+    for (j = 0; j < points; j++) {
+      data[i].values.push({
+        x: random(), 
+        y: random(), 
+        size: Math.random(), 
+        shape: shapes[j % 6]
+      });
+    }
+  }
+
+  return data;
+}
+
+
+function tinyPoints() {
+  var rval = {key: "Tiny points", values: []};
+  for(var i =1; i < 20; i++) {
+    rval.values.push({
+       x: Math.random() * 1e-10,
+       y: Math.random() * 1e-10
+    });
+  }
+  return [rval];
+}
+</script>
 
   </body>
 </html>
