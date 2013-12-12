@@ -16,6 +16,9 @@ var svg = d3.select("#artist-d3").append("svg")
 // var colors = ['#3366FF', '#6633FF', '#C3F', '#F3C', '#3CF', '#003DF5', '#002EB8', '#F36', '#3FC', '#B88A00', '#F5B800', '#F63', '#3F6', '#6F3', '#CF3', '#FC3', '#FF3', '#3FC'];
 
 var colors = ['#9CF', '#FC9', '#FC9', '#99F', '#C9F', '#F9F', '#9FF', '#5CADFF', '#1F8FFF', '#F9C', '#9FC', '#F8F1F', '#FFAD5C', '#F99', '#9F9', '#CF9', '#FF9', '#FC9', '#FC9']
+var more_colors = ['#4DA6FF', '#4D4DFF', '#A64DFF', '#FF4DFF', '#4DFFFF', '#0F87FF', '#0069D1', '#FF4DA6', '#4DFFA6', '#D16900', '#FF870F', '#FF4D4D', '#4DFF4D', '#A6FF4D', '#FFFF4D', '#FFA64D', '#FFF', '#000']
+var genre_colors = colors.concat(more_colors)
+var genres = ['randb-soul', 'easy-listening', 'pop', 'dance', 'soundtrack', 'jazz', 'rock', 'compilation', 'electronic', 'electronica', 'downtempo', 'alternative-indie', 'punk', 'alternative', 'reggae', 'dubstep', '2000s', 'live', 'blues', 'house', 'children', 'drum-and-bass', 'pop-rock', 'country', 'folk', 'tech-house', 'hard-rock-metal', 'hip-hop-rap', 'trance', 'spoken-word', 'no-genre', 'techno', 'deep-house', 'holiday']
 
 d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", function(gexf) {
 // d3.xml("../static/resources/playlists_artist_graph.gexf", "application/xml", function(gexf) {
@@ -105,11 +108,15 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
 
   var MIN_PAGERANK = 0.000753958309765
   var MAX_PAGERANK = 0.0122727168834
-  var MIN_NODE = 3.
-  var MAX_NODE = 15.
-  var m = (MIN_NODE - MAX_NODE)/ (MIN_PAGERANK - MAX_PAGERANK)
-  var b = MIN_NODE - MIN_PAGERANK * m
-  console.log(m,b)
+  var MIN_SCORE = 0.0
+  var MAX_SCORE = 169.0
+  var MIN_NODE = 3.0
+  var MAX_NODE = 15.0
+  var m_pagerank = (MIN_NODE - MAX_NODE)/ (MIN_PAGERANK - MAX_PAGERANK)
+  var b_pagerank = MIN_NODE - MIN_PAGERANK * m_pagerank
+  var m_score = (MIN_NODE - MAX_NODE) / (MIN_SCORE - MAX_SCORE)
+  var b_score = (MIN_NODE - MIN_SCORE) * m_score
+  // console.log(m,b)
 
   var node = svg.selectAll('.node')
     .data(nodes)
@@ -117,8 +124,8 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
     .attr("class", "node")
     // .attr("r", 5)
     .attr('r', function(d) {
-      console.log(d.pagerank, d.pagerank*m + b)
-      return d.pagerank*m + b
+      // console.log(d.pagerank, d.pagerank*m + b)
+      return d.pagerank*m_pagerank + b_pagerank
     })
     // .style("fill", function(d) { return color(d.group); })
     .style('fill', function(d) { 
@@ -152,5 +159,42 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
   });
+
+  $('#artist-color').on('change', function() {
+    // alert('red!');
+    var color_scheme = $(this).val()
+    // alert(color_scheme);
+    if (color_scheme == 'modularity') {
+      node.style('fill', function(d) { 
+        // console.log(d.modularity)
+        return colors[d.modularity]; 
+      })
+    }
+    if (color_scheme == 'genre') {
+      node.style('fill', function(d) { 
+        // console.log(d.modularity)
+        var ind = genres.indexOf(d.genre)
+        return genre_colors[ind]; 
+      })
+    }
+  })
+
+  $('#artist-size').on('change', function() {
+    // alert('red!');
+    var size_scheme = $(this).val()
+    // alert(size_scheme);
+    if (size_scheme == 'pagerank') {
+      node.attr('r', function(d) {
+        // console.log(d.pagerank, d.pagerank*m + b)
+        return d.pagerank*m_pagerank + b_pagerank
+      })
+    }
+    if (size_scheme == 'score') {
+      node.attr('r', function(d) {
+        // console.log(d.pagerank, d.pagerank*m + b)
+        return d.score*m_score + b_score
+      })
+    }
+  })
 
 });
