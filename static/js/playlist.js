@@ -1,12 +1,13 @@
 
-var width_playlist = 800,
+var width_playlist = 600,
     height_playlist = 500;
 
 var color_playlist = d3.scale.category20();
 
 var force_playlist = d3.layout.force()
-    .charge(-200)
-    .linkDistance(20)
+    .charge(-1000)
+    .gravity(1)
+    .linkDistance(250)
     .size([width_playlist, height_playlist]);
 
 var svg_playlist = d3.select("#playlist-d3").append("svg")
@@ -100,7 +101,7 @@ d3.xml("../static/resources/songs_top_attr.gexf", "application/xml", function(ge
     .enter()
     .append('line')
     .attr('class', 'link')
-    .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+    .style("stroke-width", function(d) { return 0.1*Math.sqrt(d.value); });
 
   // console.log('link', link);
 

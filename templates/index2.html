@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+
+    <title>Aural Pleasure (CS109 Final Project)</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/carousel.css" rel="stylesheet">
+
+    <!---for novus-->
+    <link href="../novus/src/nv.d3.css" rel="stylesheet" type="text/css">
+
+
+    <style>
+      .node {
+        stroke: #fff;
+        stroke-width:1.5px;
+      }
+
+      .link {
+        stroke: #999;
+        stroke-opacity: .6;
+      }
+    </style>
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">The Truth Behind Aural Pleasure</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#inherent">Inherent</a></li>
+                <li><a href="#artist">Artist</a></li>
+                <li><a href="#user">User</a></li>
+                <li><a href="#impact">Impact</a></li>
+                <li><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/aural-pleasure.ipynb">Notebook</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Carousel
+    ================================================== -->
+    
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    
+
+      <hr class="featurette-divider" id="artist">
+
+      <div class="row featurette">
+        
+        <!-- <button class='btn' id='artist-modularity'>Modularity</button>
+        <button class='btn' id='artist-modularity'>Modularity</button> -->
+        <div class="col-md-7" id="artist-d3" >
+          <!-- <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
+        </div>
+        <div class="col-md-5">
+          
+          
+          <h2 class="featurette-heading">Artist interactions<span class="text-muted"> performing at the same event.</span></h2>
+          <p class="lead">Each of the nodes represents an artist. Each of the edges represents the number of times that artist has played at the same event as another artist based on the SongKick Api.</p>
+          <a class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist-interactions.ipynb" role="button">View artist interactions notebook &raquo;</a><br>
+          <table class='table'>
+            <tr>
+              <td>
+                <h3>Color by:</h3>
+                <select class='form-control' id='artist-color'>
+                  <option value='modularity'>Modularity</option>
+                  <option value='genre'>Genre</option>
+                </select>
+              </td>
+              <td>
+                <h3>Size by:</h3>
+                <select class='form-control' id='artist-size'>
+                  <option value='pagerank'>Page Rank</option>
+                  <option value='score'>Score</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" id="user">
+
+      
+
+      <hr class="featurette-divider">
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 RL JC JM</p>
+      </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/holder.js"></script>
+
+<!--JOY-->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="../static/js/artist.js"></script>
+    <script src="../static/js/playlist.js"> </script>
+
+
+  </body>
+</html>
