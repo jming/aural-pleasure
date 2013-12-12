@@ -312,12 +312,13 @@ function defaultChartTest(container, data, margin) {
                   ;
     chart.xAxis.tickFormat(d3.format('.02f'));
     chart.yAxis.tickFormat(d3.format('.02f'));
-    if (margin) {
-      chart.margin(margin);
-    }
+    //if (margin) {
+    //  chart.margin(margin);
+    //}
     chart.tooltipContent(function(key) {
         return "<h3>" + key + "</h3>";
     });
+    
     d3.select('#' + container + ' svg').datum(data).transition().duration(500).call(chart);
     nv.utils.windowResize(chart.update);
     return chart;
