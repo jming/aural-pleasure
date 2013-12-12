@@ -28,43 +28,11 @@ var svg = d3.select("#artist-d3").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-// read in the data for the artist graph with info
-d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", function(gexf) {
+$.getJSON("../static/js/artist_graph.json", function(data) {
 
-  // get the nodes from the xml file
-  var xml_nodes = gexf.documentElement.getElementsByTagName('node');
-  var node_names = new Array();
-  var nodes = new Array();
-  
-  // extract information from each xml node
-  for (n = 0; n< xml_nodes.length; n++) {
-    node = xml_nodes[n];
-    attrs = node.getElementsByTagName('attvalue')
-    nodes.push({
-      name: node.id,
-      genre: attrs[0].getAttribute('value'),
-      pagerank: attrs[1].getAttribute('value'),
-      modularity: attrs[2].getAttribute('value'),
-      score: attrs[3].getAttribute('value')
-    });
-    node_names.push(node.id);
-  }
-
-  // get links from xml file
-  var links = new Array();
-  var xml_links = gexf.documentElement.getElementsByTagName('edge');
-
-  // extract information from each xml link
-  for (l=0; l < xml_links.length-1; l++) {
-    link = xml_links[l];
-    var source_name = link.getAttribute('source');
-    var target_name = link.getAttribute('target');
-    links.push({
-      source: node_names.indexOf(source_name),
-      target: node_names.indexOf(target_name),
-      value: link.getAttribute('weight')
-    })
-  }
+  // get nodes and links
+  var nodes = data.nodes
+  var links = data.edges
 
   // create all of the links
   var link = svg.selectAll('.link')
@@ -131,17 +99,17 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
   // function to handle mouseover expansion of circle and display of text
   function mouseover() {
     d3.select(this).select("circle")
-      // .transition().duration(300)
+      .transition().duration(200)
       .attr("r", 16);
     d3.select(this).select('text').transition()
-      .duration(750)
+      .duration(200)
       .style({opacity: 1.0});
   }
 
   // function to handle mouseout shrinking of circle and hiding of text
   function mouseout() {
     d3.select(this).select('text')
-      // .transition().duration(300)
+      .transition().duration(200)
       .style({opacity: 0.0});
     sizeNodes('artist', node);
   }
