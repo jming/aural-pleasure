@@ -102,7 +102,6 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
   sizeNodes('artist', node);
 
   // create the force graph
-
   force
     .nodes(nodes)
     .links(links)
