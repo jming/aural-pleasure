@@ -180,8 +180,8 @@
         <!-- inherent d3 graph -->
         <div class="col-md-7">
            <div id="test10" style="height: 500px;">
-            Lots of series
             <svg></svg>
+            <audio id="start-play" preload='auto'></audio>
           </div>
         </div>
       </div>
@@ -280,22 +280,17 @@
     <!-- code to display d3 graphs -->
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="../static/js/app.js"></script>
-    <script src="../static/js/artist.js"></script>
-    <script src="../static/js/playlist.js"> </script>
+    <!--<script src="../static/js/artist.js"></script>
+    <script src="../static/js/playlist.js"> </script>-->
 
 <!--RYAN-->
-  <script src="../static/novus/lib/d3.v3.js"></script>
-<script src="../static/novus/lib/fisheye.js"></script>
+<script src="../static/novus/lib/d3.v3.js"></script>
+<!--<script src="../static/novus/lib/fisheye.js"></script>-->
 <script src="../static/novus/nv.d3.js"></script>
 <script src="../static/novus/src/tooltip.js"></script>
 <script src="../static/novus/src/utils.js"></script>
 <script src="../static/novus/src/models/legend.js"></script>
-<script src="../static/novus/src/models/axis.js"></script>
-<script src="../static/novus/src/models/distribution.js"></script>
-<script src="../static/novus/src/models/scatter.js"></script>
 <script src="../static/novus/src/models/scatterChart.js"></script>
-<script src="../static/novus/src/models/scatterPlusLineChart.js"></script>
-<script src="../static/novus/test/testScript.js"></script>
 <script>
 
 //parse json file
@@ -304,25 +299,44 @@ $.getJSON("test.json", function(data) {
     defaultChartTest("test10", data);
 });
 
-function defaultChartTest(container, data, margin) {
+//create global variable for id of current song
+var current_playing = "start-play"
+
+function defaultChartTest(container, data) {
   nv.addGraph(function() {
+
     var chart;
+
     chart = nv.models.scatterChart()
-                  .showDistX(true).showDistY(true)
                   ;
     chart.xAxis.tickFormat(d3.format('.02f'));
     chart.yAxis.tickFormat(d3.format('.02f'));
-    //if (margin) {
-    //  chart.margin(margin);
-    //}
-    chart.tooltipContent(function(key) {
-        return "<h3>" + key + "</h3>";
+
+    chart.tooltipContent(function(key,x,y,mod) {
+       console.log(mod["point"]);
+
+       //make id
+       audid = mod["point"]['artist-song'].split(" ")[0]
+
+       // play the preview clip
+       audioplay(mod["point"]['preview_link'],audid);
+
+       return "<h3>"+mod["point"]['artist-song']+ "</h3>";
     });
-    
-    d3.select('#' + container + ' svg').datum(data).transition().duration(500).call(chart);
+
+    d3.select('#' + container + ' svg').datum(data).transition().duration(50).call(chart);
+
     nv.utils.windowResize(chart.update);
+
     return chart;
   });
+}
+
+function audioplay(src,audid){
+    $("#"+current_playing)[0].pause();
+    $("#test10").append( "<audio id="+audid+" src=http://www.7digital.com/"+src+" preload='auto'></audio>" );
+    $("#"+audid)[0].play();
+    current_playing = audid;
 }
 
 
