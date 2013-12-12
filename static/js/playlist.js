@@ -29,43 +29,12 @@ var svg_playlist = d3.select("#playlist-d3").append("svg")
     .attr("height", height_playlist);
 
 // read in the data for the user preferences graph
-d3.xml("../static/resources/songs_top_attr.gexf", "application/xml", function(gexf) {
+$.getJSON("../static/js/user_graph.json", function(data) {
 
-  // get the nodes from the xml file
-  var xml_nodes = gexf.documentElement.getElementsByTagName('node');
-  var node_names = new Array();
-  var nodes = new Array();
-
-  // extract information from each xml node
-  for (n = 0; n< xml_nodes.length; n++) {
-    node = xml_nodes[n];
-    attrs = node.getElementsByTagName('attvalue')
-    nodes.push({
-      name: node.id,
-      genre: attrs[0].getAttribute('value'),
-      occ: attrs[1].getAttribute('value'),
-      score: attrs[2].getAttribute('value'),
-      modularity: attrs[3].getAttribute('value'),
-      year: attrs[4].getAttribute('value')
-    });
-    node_names.push(node.id);
-  }
-
-  // get links from xml file
-  var links = new Array();
-  var xml_links = gexf.documentElement.getElementsByTagName('edge');
-
-  // extract information from each xml link
-  for (l=0; l < xml_links.length-1; l++) {
-    link = xml_links[l];
-    var source_name = link.getAttribute('source');
-    var target_name = link.getAttribute('target');
-    links.push({
-      source: node_names.indexOf(source_name),
-      target: node_names.indexOf(target_name),
-      value: link.getAttribute('weight')
-    })
-  }
+  // get nodes and links
+  console.log(data)
+  var nodes = data.nodes
+  var links = data.links
 
   // create links
   var link = svg_playlist.selectAll('.link')
@@ -94,7 +63,7 @@ d3.xml("../static/resources/songs_top_attr.gexf", "application/xml", function(ge
     .attr("x", 12)
     .attr("dy", ".35em")
     .text(function(d) { 
-      var str = d.name
+      var str = d.id
       return str; 
     })
     .style({opacity: '0.0'});
