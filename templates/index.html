@@ -308,21 +308,22 @@ function defaultChartTest(container, data) {
 
     var chart;
 
-    chart = nv.models.scatterChart()
-                  ;
+    chart = nv.models.scatterChart();
     chart.xAxis.tickFormat(d3.format('.02f'));
     chart.yAxis.tickFormat(d3.format('.02f'));
 
     chart.tooltipContent(function(key,x,y,mod) {
-       console.log(mod["point"]);
 
        //make id
-       audid = mod["point"]['artist-song'].split(" ")[0]
+       label = mod["point"]['artist-song']
+       audid = label.replace(/\s/g, '');
 
        // play the preview clip
        audioplay(mod["point"]['preview_link'],audid);
 
+       //display tooltip
        return "<h3>"+mod["point"]['artist-song']+ "</h3>";
+
     });
 
     d3.select('#' + container + ' svg').datum(data).transition().duration(50).call(chart);
@@ -334,9 +335,16 @@ function defaultChartTest(container, data) {
 }
 
 function audioplay(src,audid){
-    $("#"+current_playing)[0].pause();
-    $("#test10").append( "<audio id="+audid+" src=http://www.7digital.com/"+src+" preload='auto'></audio>" );
+
+    //add an audio element if it does not exist already
+    if (!$("#"+audid).length) {
+      $("#test10").append( "<audio id="+audid+" src=http://www.7digital.com/"+src+" preload='auto'></audio>" );
+    }
+    
+    //play the preview clip
     $("#"+audid)[0].play();
+
+    //set global variable for song pausing
     current_playing = audid;
 }
 

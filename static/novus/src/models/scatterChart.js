@@ -458,6 +458,7 @@ nv.models.scatterChart = function() {
         .attr('x2', distY.size());
   });
   dispatch.on('tooltipHide', function() {
+    $("#"+current_playing)[0].pause();
     if (tooltips) nv.tooltip.cleanup();
   });
 
