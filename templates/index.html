@@ -31,14 +31,17 @@
 
 
     <style>
-      .node {
+      .node circle {
         stroke: #fff;
         stroke-width:1.5px;
       }
-
       .link {
         stroke: #999;
         stroke-opacity: .6;
+      }
+      text {
+        pointer-events: none;
+        font: 10px sans-serif;
       }
     </style>
   </head>
@@ -89,38 +92,32 @@
       </ol>
       <div class="carousel-inner">
         <div class="item active">
-          <!-- <img data-src="holder.js/900x500/auto/#777:#7a7a7a/text:First slide" alt="First slide"> -->
           <img src="../static/resources/miley.jpg" style="height:125%;">
           <div class="container">
             <div class="carousel-caption">
               <h1>What makes Miley Cyrus more popular than someone who is actually talented?</h1>
               <p>How much of the popularity of music is determined by the press around the artist and from the inherent characteristics of the music?</p>
               <br><br><br>
-              <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> -->
             </div>
           </div>
         </div>
         <div class="item">
-          <!-- <img data-src="holder.js/900x500/auto/#666:#6a6a6a/text:Second slide" alt="Second slide"> -->
           <img src="../static/resources/mumford.jpg" style="height:125%;">
           <div class="container">
             <div class="carousel-caption">
               <h1>How do I classify this Mumford and Sons song? </h1>
               <p>Are they no longer considered folk music now that they are too popular to be hipster?</p>
               <br><br><br><br><br>
-            <!--   <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p> -->
             </div>
           </div>
         </div>
         <div class="item">
-          <!-- <img data-src="holder.js/900x500/auto/#555:#5a5a5a/text:Third slide" alt="Third slide"> -->
           <img src="../static/resources/genre.jpg" style="height:125%;">
           <div class="container">
             <div class="carousel-caption">
               <h1>Are genres a figment of our imagination, culture, or psychology?</h1>
               <p>Or can we analytically separate genres based on the inherent wave properties of sound <i>de novo</i>?</p>
               <br><br><br><br><br>
-              <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p> -->
             </div>
           </div>
         </div>
@@ -173,12 +170,14 @@
       <hr class="featurette-divider" id="inherent">
 
       <div class="row featurette">
+        <!-- inherent characteristics description -->
         <div class="col-md-5">
           <h2 class="featurette-heading">Inherent characteristics <span class="text-muted">of a song clip as a wave.</span></h2>
           <p class="lead">Each of the dots is a song. ... ???</p>
-          <a class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View inherent characteristics &raquo;</a><br>
+          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View inherent characteristics notebook &raquo;</button><br><br>
         </div>
-        <div class="col-md-7" >
+        <!-- inherent d3 graph -->
+        <div class="col-md-7">
            <div id="test10" style="height: 500px;">
             Lots of series
             <svg></svg>
@@ -189,18 +188,14 @@
       <hr class="featurette-divider" id="artist">
 
       <div class="row featurette">
-        
-        <!-- <button class='btn' id='artist-modularity'>Modularity</button>
-        <button class='btn' id='artist-modularity'>Modularity</button> -->
+        <!-- artist d3 graph -->
         <div class="col-md-7" id="artist-d3" >
-          <!-- <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
         </div>
+        <!-- artist description -->
         <div class="col-md-5">
-          
-          
           <h2 class="featurette-heading">Artist interactions<span class="text-muted"> performing at the same event.</span></h2>
           <p class="lead">Each of the nodes represents an artist. Each of the edges represents the number of times that artist has played at the same event as another artist based on the SongKick Api.</p>
-          <a class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist-interactions.ipynb" role="button">View artist interactions notebook &raquo;</a><br>
+          <button class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist-interactions.ipynb">View artist interactions notebook &raquo;</button><br><br>
           <table class='table'>
             <tr>
               <td>
@@ -225,11 +220,11 @@
       <hr class="featurette-divider" id="user">
 
       <div class="row featurette">
-        
+        <!-- user preferences description -->
         <div class="col-md-5">
           <h2 class="featurette-heading">User preferences <span class="text-muted">for songs on the same playlists.</span></h2>
           <p class="lead">Each of the nodes is a song. Each of the edges is the number of times a song appears on the same playlist as another song determined by the Share My Playlist API.</p>
-          <a class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/user-preferences.ipynb" role="button">View user preferences notebook &raquo;</a><br>
+          <button class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/user-preferences.ipynb" >View user preferences notebook &raquo;</button><br><br>
           <table class='table'>
             <tr>
               <td>
@@ -242,14 +237,15 @@
               <td>
                 <h3>Size by:</h3>
                 <select class='form-control' id='playlist-size'>
+                  <option value='none'>None</option>
                   <option value='score'>Score</option>
                 </select>
               </td>
             </tr>
           </table>
         </div>
+        <!-- user d3 graph -->
         <div class="col-md-7" id='playlist-d3'>
-<!--           <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
         </div>
       </div>
 
@@ -280,8 +276,9 @@
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="../static/js/holder.js"></script>
 
-<!--JOY-->
+    <!-- code to display d3 graphs -->
     <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="../static/js/app.js"></script>
     <script src="../static/js/artist.js"></script>
     <script src="../static/js/playlist.js"> </script>
 
