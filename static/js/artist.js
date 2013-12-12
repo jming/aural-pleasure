@@ -99,17 +99,17 @@ $.getJSON("../static/js/artist_graph.json", function(data) {
   // function to handle mouseover expansion of circle and display of text
   function mouseover() {
     d3.select(this).select("circle")
-      // .transition().duration(300)
+      .transition().duration(200)
       .attr("r", 16);
     d3.select(this).select('text').transition()
-      .duration(750)
+      .duration(200)
       .style({opacity: 1.0});
   }
 
   // function to handle mouseout shrinking of circle and hiding of text
   function mouseout() {
     d3.select(this).select('text')
-      // .transition().duration(300)
+      .transition().duration(200)
       .style({opacity: 0.0});
     sizeNodes('artist', node);
   }
