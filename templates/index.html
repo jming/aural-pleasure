@@ -68,6 +68,7 @@
                 <li><a href="#artist">Artist</a></li>
                 <li><a href="#user">User</a></li>
                 <li><a href="#impact">Impact</a></li>
+                <li><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/aural-pleasure.ipynb">Notebook</a></li>
               </ul>
             </div>
           </div>
@@ -135,7 +136,7 @@
       <h2>Our project proposes to study this mass corpus of aural pleasure--to find truth within this universal language of Music.</h2>
     </div>
 
-    <hr class="featurette-divider" id="artist">
+    <hr class="featurette-divider">
 
 
     <!-- Marketing messaging and featurettes
@@ -172,11 +173,12 @@
       <hr class="featurette-divider" id="inherent">
 
       <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <div class="col-md-5">
+          <h2 class="featurette-heading">Inherent characteristics <span class="text-muted">of a song clip as a wave.</span></h2>
+          <p class="lead">Each of the dots is a song. ... ???</p>
+          <a class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View inherent characteristics &raquo;</a><br>
         </div>
-        <div class="col-md-5" >
+        <div class="col-md-7" >
            <div id="test10" style="height: 500px;">
             Lots of series
             <svg></svg>
@@ -187,24 +189,67 @@
       <hr class="featurette-divider" id="artist">
 
       <div class="row featurette">
-        <div class="col-md-5" id="artist-d3" >
+        
+        <!-- <button class='btn' id='artist-modularity'>Modularity</button>
+        <button class='btn' id='artist-modularity'>Modularity</button> -->
+        <div class="col-md-7" id="artist-d3" >
           <!-- <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
         </div>
-        <div class="col-md-7">
-          <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <div class="col-md-5">
+          
+          
+          <h2 class="featurette-heading">Artist interactions<span class="text-muted"> performing at the same event.</span></h2>
+          <p class="lead">Each of the nodes represents an artist. Each of the edges represents the number of times that artist has played at the same event as another artist based on the SongKick Api.</p>
+          <a class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist-interactions.ipynb" role="button">View artist interactions notebook &raquo;</a><br>
+          <table class='table'>
+            <tr>
+              <td>
+                <h3>Color by:</h3>
+                <select class='form-control' id='artist-color'>
+                  <option value='modularity'>Modularity</option>
+                  <option value='genre'>Genre</option>
+                </select>
+              </td>
+              <td>
+                <h3>Size by:</h3>
+                <select class='form-control' id='artist-size'>
+                  <option value='pagerank'>Page Rank</option>
+                  <option value='score'>Score</option>
+                </select>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
 
       <hr class="featurette-divider" id="user">
 
       <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
+        
         <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <h2 class="featurette-heading">User preferences <span class="text-muted">for songs on the same playlists.</span></h2>
+          <p class="lead">Each of the nodes is a song. Each of the edges is the number of times a song appears on the same playlist as another song determined by the Share My Playlist API.</p>
+          <a class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/user-preferences.ipynb" role="button">View user preferences notebook &raquo;</a><br>
+          <table class='table'>
+            <tr>
+              <td>
+                <h3>Color by:</h3>
+                <select class='form-control' id='playlist-color'>
+                  <option value='modularity'>Modularity</option>
+                  <option value='genre'>Genre</option>
+                </select>
+              </td>
+              <td>
+                <h3>Size by:</h3>
+                <select class='form-control' id='playlist-size'>
+                  <option value='score'>Score</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-7" id='playlist-d3'>
+<!--           <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
         </div>
       </div>
 
@@ -236,108 +281,8 @@
     <script src="../static/js/holder.js"></script>
 
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script type="text/javascript">
-      
-      var width = 1000,
-          height = 1000;
-
-      var color = d3.scale.category20();
-
-      var force = d3.layout.force()
-          .charge(-120)
-          .linkDistance(30)
-          .size([width, height]);
-
-      var svg = d3.select("#artist-d3").append("svg")
-          .attr("width", width)
-          .attr("height", height);
-
-      d3.xml("../static/resources/playlists_artist_graph.gexf", "application/xml", function(gexf) {
-
-        // console.log('gexf');
-        // console.log(gexf.documentElement.getElementsByTagName('node'));
-
-        var xml_nodes = gexf.documentElement.getElementsByTagName('node');
-
-        // console.log(xml_nodes);
-        var node_names = new Array();
-        var nodes = new Array();
-
-        for (n in xml_nodes) {
-        // for (n =0; n < 10; n++) {
-          // console.log(xml_nodes[node].id);
-          node = xml_nodes[n];
-          // console.log(node);
-          nodes.push({
-            name: node.id
-          });
-
-          node_names.push(node.id);
-        }
-
-        console.log(nodes);
-
-        var links = new Array();
-
-        var xml_links = gexf.documentElement.getElementsByTagName('edge');
-
-        console.log(xml_links);
-
-        // for (l in xml_links) {
-        for (l=0; l < xml_links.length-1; l++) {
-          link = xml_links[l];
-          console.log(link.id);
-          // console.log(link.id, link.getAttribute('source'), link.target, link.weight)
-          var source_name = link.getAttribute('source');
-          var target_name = link.getAttribute('target');
-          links.push({
-            source: node_names.indexOf(source_name),
-            target: node_names.indexOf(target_name),
-            value: link.getAttribute('weight')
-            // value: 1
-          })
-        }
-
-        console.log(links);
-
-        force
-          .nodes(nodes)
-          .links(links)
-          .start();
-
-        var link = svg.selectAll('.link')
-          .data(links)
-          .enter()
-          .append('line')
-          .attr('class', 'link')
-          .style("stroke-width", function(d) { return Math.sqrt(d.value); });
-
-        var node = svg.selectAll('.node')
-          .data(nodes)
-          .enter().append("circle")
-          .attr("class", "node")
-          .attr("r", 5)
-          // .style("fill", function(d) { return color(d.group); })
-          .style('fill', function(d) { return 'blue'; })
-          .call(force.drag);
-
-        node.append("title")
-          .text(function(d) { return d.name; });
-
-        force.on("tick", function() {
-          link.attr("x1", function(d) { return d.source.x; })
-              .attr("y1", function(d) { return d.source.y; })
-              .attr("x2", function(d) { return d.target.x; })
-              .attr("y2", function(d) { return d.target.y; });
-
-          node.attr("cx", function(d) { return d.x; })
-              .attr("cy", function(d) { return d.y; });
-        });
-
-        node.attr("cx", function(d) { return d.x; })
-          .attr("cy", function(d) { return d.y; });
-
-      });
+    <script src="../static/js/artist.js"></script>
+    <script src="../static/js/playlist.js">
 
       // d3.json("../static/resources/miserables.json", function(error, graph) {
       //   console.log("json");
@@ -382,9 +327,7 @@
 
     </script>
 
-
-
-<script src="../novus/lib/d3.v3.js"></script>
+    <script src="../novus/lib/d3.v3.js"></script>
 <!--<script src="../lib/fisheye.js"></script>-->
 <script src="../novus/nv.d3.js"></script>
 <script src="../novus/src/tooltip.js"></script>
