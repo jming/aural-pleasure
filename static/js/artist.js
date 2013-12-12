@@ -17,7 +17,7 @@ var width = 600,
 var color = d3.scale.category20();
 
 var force = d3.layout.force()
-    .charge( -300)
+    .charge(-500)
     .gravity(1)
     .linkDistance(function(d) {
       return d.target._children ? 100 : 30;
@@ -72,6 +72,7 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
     .enter()
     .append('line')
     .attr('class', 'link')
+
     .style("stroke-width", function(d) {
       return 0.1*Math.sqrt(d.value); 
     });
