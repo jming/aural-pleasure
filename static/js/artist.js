@@ -131,8 +131,8 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
 
   // function to handle mouseover expansion of circle and display of text
   function mouseover() {
-    d3.select(this).select("circle").transition()
-      .duration(750)
+    d3.select(this).select("circle")
+      // .transition().duration(300)
       .attr("r", 16);
     d3.select(this).select('text').transition()
       .duration(750)
@@ -141,8 +141,8 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
 
   // function to handle mouseout shrinking of circle and hiding of text
   function mouseout() {
-    d3.select(this).select('text').transition()
-      .duration(750)
+    d3.select(this).select('text')
+      // .transition().duration(300)
       .style({opacity: 0.0});
     sizeNodes('artist', node);
   }
