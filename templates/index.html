@@ -31,6 +31,11 @@
 
 
     <style>
+
+      * {
+        font-family: 'Helvetica Neue';
+        font-weight: 200;
+      }
       .node circle {
         stroke: #fff;
         stroke-width:1.5px;
@@ -45,11 +50,32 @@
 /*        z-index:10000000000;
         position:absolute;*/
       }
+
+      .featurette-heading{
+        margin-top: 50px;
+      }
+
+      div.explain{
+        background-color: rgb(66,66,66);
+        display: none;
+        color: white;
+      }
+      .navbar-wrapper .navbar {
+          border-radius: 0px;
+        }
+      .carousel{
+        margin-bottom: 0px;
+      }
+      div#about{
+        padding-top: 60px;
+      }
+
+
     </style>
   </head>
 <!-- NAVBAR
 ================================================== -->
-  <body>
+  <body data-spy="scroll" data-target=".navbar-collapse">
 
     <div class="navbar-wrapper">
       <div class="container">
@@ -67,13 +93,12 @@
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li class="active"><a href="#about">About</a></li>
                 <li><a href="#inherent">Inherent</a></li>
                 <li><a href="#artist">Artist</a></li>
                 <li><a href="#user">User</a></li>
-                <li><a href="#impact">Impact</a></li>
-                <li><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/aural-pleasure.ipynb">Notebook</a></li>
+                <li><a href="#impact">Conclusion</a></li>
+                <li><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/aural-pleasure.ipynb"><em>Notebook</em></a></li>
               </ul>
             </div>
           </div>
@@ -85,7 +110,7 @@
 
     <!-- Carousel
     ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" id="home">
       <!-- Indicators -->
       <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -174,9 +199,13 @@
       <div class="row featurette">
         <!-- inherent characteristics description -->
         <div class="col-md-5">
-          <h2 class="featurette-heading">Inherent characteristics <span class="text-muted">of a song clip as a wave.</span></h2>
-          <p class="lead">Each of the dots is a song. ... ???</p>
-          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View inherent characteristics notebook &raquo;</button><br><br>
+          <h2 class="featurette-heading">Inherent characteristics <span class="text-muted">of a song as a complex sound wave.</span></h2>
+
+          <p class="lead">443 songs from 35 genres displayed on a "similarity plane." R&amp;B Soul and Alternative Indie are inherenlty the same genre.</p><br/>
+
+          <button class='btn' href="#" role="button" onclick='ToggleExplain("#inherent-explain");'>Expand Details &raquo;</button><br><br>
+
+
         </div>
         <!-- inherent d3 graph -->
         <div class="col-md-7">
@@ -186,6 +215,29 @@
           </div>
         </div>
       </div>
+
+      <div class="row explain" id="inherent-explain">
+        <div class="col-lg-4">
+          <h2>What is this?</h2>
+          <p >The current graph shows 443 songs from the intersection of the 7digital data and the playlist data (see below). The size of each dot is proportional to a popularity score (see below). MP3 preview files were taken from 7digital.com. 
+          <br/><br/>
+          The sound waves which make up a specific song can be represented as a multi-dimensional vector. To better visualize these data, we reduced the dimensionality with Principal Component Analysis (PCA). Each data point represents a song plotted on the first two principal components.</p>
+          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View inherent characteristics notebook &raquo;</button><br><br>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <h2>See for yourself</h2>
+          <p >Hover over each song to listen to a preview. (Some preview clips may be softer and load more slowly.) Songs that are close together on the PCA plane should sound similar. Listen to songs on the extremes of each axis and note any differences or similarities. 
+          <br/><br/>
+          Click the genre labels to toggle the display of songs categorized in each genre by 7digital. Double click on the genre label to show songs solely from that genre. Start with hiding all genres except "punk" and "folk". These are the genres that are most distinct. </p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <h2>What it means</h2>
+          <p >We noted that the first principal component (x-axis) represents a soft-to-rock variation. Songs at the left extreme of the axis sound more classical and soft, whereas those on the rightmost extreme sound more hard and rock. The second principal component (y-axis) seems to represent tempo variation. Songs at the bottom extreme of the axis sound slower, whereas those on the topmost extreme sound faster. 
+          <br/><br/>
+          Some sets of genres are more distinct than others. The most well-defined distinction was observed between songs classified as pop and those classifed as folk. These distinctions make intuitive sense from experience. Conversely, least well-defined distinction was observed between songs classified as R and B Soul and those classifed as Alternative Indie.  </p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
 
       <hr class="featurette-divider" id="artist">
 
@@ -197,7 +249,10 @@
         <div class="col-md-5">
           <h2 class="featurette-heading">Artist interactions<span class="text-muted"> performing at the same event.</span></h2>
           <p class="lead">Each of the nodes represents an artist. Each of the edges represents the number of times that artist has played at the same event as another artist based on the SongKick Api.</p>
-          <button class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist-interactions.ipynb">View artist interactions notebook &raquo;</button><br><br>
+
+          <button class='btn' href="#" role="button" onclick='ToggleExplain("#artist-explain");'>Expand Details &raquo;</button><br><br>
+
+
           <table class='table'>
             <tr>
               <td>
@@ -219,14 +274,33 @@
         </div>
       </div>
 
+      <div class="row explain" id="artist-explain">
+        <div class="col-lg-4">
+          <h2>What is this?</h2>
+          <p >............................................................................................................................................................................................................................................................................................................................................................................</p>
+          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View inherent characteristics notebook &raquo;</button><br><br>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <h2>See for yourself</h2>
+          <p >............................................................................................................................................................................................................................................................................................................................................................................</p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <h2>What it means</h2>
+          <p >............................................................................................................................................................................................................................................................................................................................................................................ </p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
       <hr class="featurette-divider" id="user">
 
       <div class="row featurette">
         <!-- user preferences description -->
         <div class="col-md-5">
           <h2 class="featurette-heading">User preferences <span class="text-muted">for songs on the same playlists.</span></h2>
-          <p class="lead">Each of the nodes is a song. Each of the edges is the number of times a song appears on the same playlist as another song determined by the Share My Playlist API.</p>
-          <button class="btn" href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/user-preferences.ipynb" >View user preferences notebook &raquo;</button><br><br>
+          <p class="lead">Each of the nodes is a song. Each of the edges is the number of times a song appears on the same playlist as another song determined by the Share My Playlist API.
+          </p>
+
+          <button class='btn' href="#" role="button" onclick='ToggleExplain("#user-explain");'>Expand Details &raquo;</button><br><br>
+
           <table class='table'>
             <tr>
               <td>
@@ -251,12 +325,34 @@
         </div>
       </div>
 
+      <div class="row explain" id="user-explain">
+        <div class="col-lg-4">
+          <h2>What is this?</h2>
+          <p >.................................................
+            ....................................................
+            .......................................................
+            .........................................................
+            .............................................................
+            ..........................................................................................</p>
+          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View inherent characteristics notebook &raquo;</button><br><br>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <h2>See for yourself</h2>
+          <p >............................................................................................................................................................................................................................................................................................................................................................................</p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <h2>What it means</h2>
+          <p >............................................................................................................................................................................................................................................................................................................................................................................</p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
       <hr class="featurette-divider">
 
       <!-- /END THE FEATURETTES -->
 
       <div class="container" id="impact">
-        <h1>Impact</h1>
+        <h1>Conclusions</h1>
         <p>This project can have many benefits. It can help artists and producers in the music industry produce songs that are more likely to be in the top 40 category, thus increasing revenue. This project can enhance current methods of categorizing and classifying songs, thus making music management/organization software more effective. And finally, it can help individuals find songs that will appeal to their tastes or moods, enhancing their listening experience like never before.</p>
       </div>
 
@@ -292,6 +388,22 @@
 <script src="../static/novus/src/utils.js"></script>
 <script src="../static/novus/src/models/legend.js"></script>
 <script src="../static/novus/src/models/scatterChart.js"></script>
+
+<script type="text/javascript">
+
+//Toggle explain text for each featurette
+function ToggleExplain(selector) {
+  $(selector).slideToggle( "fast", function(){
+    if ($(selector).is(":visible")){
+      $("body").animate({scrollTop:
+      $(selector).offset().top+$(selector).height() - $(window).height()
+      },500);
+    }
+  });
+}
+
+</script>
+
 <script>
 
 //parse json file
@@ -347,6 +459,7 @@ function audioplay(src,audid){
     //set global variable for song pausing
     current_playing = audid;
 }
+
 
 
 </script>
