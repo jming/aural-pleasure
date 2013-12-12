@@ -2,7 +2,7 @@
 var width = 600,
     height = 500;
 
-var k = Math.sqrt(200./(width*height))
+// var k = Math.sqrt(200./(width*height))
 
 var color = d3.scale.category20();
 

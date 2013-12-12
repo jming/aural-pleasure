@@ -4,10 +4,25 @@ var width_playlist = 600,
 
 var color_playlist = d3.scale.category20();
 
+// var force_playlist = d3.layout.force()
+//     .charge(-1000)
+//     .gravity(1)
+//     .linkDistance(250)
+//     .size([width_playlist, height_playlist]);
+
 var force_playlist = d3.layout.force()
-    .charge(-1000)
+    // .charge(-10)
+    // .gravity(0.1)
+    .charge( -300)
     .gravity(1)
-    .linkDistance(250)
+    // .linkDistance(250)
+    .linkDistance(function(d) {
+      return d.target._children ? 100 : 30;
+    })
+    // .linkStrength(10)
+    // .linkStrength(function(d) {
+      // return 1./2*(d.value);
+    // })
     .size([width_playlist, height_playlist]);
 
 var svg_playlist = d3.select("#playlist-d3").append("svg")
