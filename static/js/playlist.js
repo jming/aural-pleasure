@@ -1,5 +1,5 @@
 
-var width_playlist = 500,
+var width_playlist = 800,
     height_playlist = 500;
 
 var color_playlist = d3.scale.category20();
@@ -15,7 +15,7 @@ var svg_playlist = d3.select("#playlist-d3").append("svg")
 
 // var colors = ['#3366FF', '#6633FF', '#C3F', '#F3C', '#3CF', '#003DF5', '#002EB8', '#F36', '#3FC', '#B88A00', '#F5B800', '#F63', '#3F6', '#6F3', '#CF3', '#FC3', '#FF3', '#3FC'];
 
-var colors = ['#9CF', '#FC9', '#FC9', '#99F', '#C9F', '#F9F', '#9FF', '#5CADFF', '#1F8FFF', '#F9C', '#9FC', '#F8F1F', '#FFAD5C', '#F99', '#9F9', '#CF9', '#FF9', '#FC9', '#FC9']
+// var colors = ['#9CF', '#FC9', '#FC9', '#99F', '#C9F', '#F9F', '#9FF', '#5CADFF', '#1F8FFF', '#F9C', '#9FC', '#F8F1F', '#FFAD5C', '#F99', '#9F9', '#CF9', '#FF9', '#FC9', '#FC9']
 
 d3.xml("../static/resources/songs_top_attr.gexf", "application/xml", function(gexf) {
 // d3.xml("../static/resources/playlists_artist_graph.gexf", "application/xml", function(gexf) {
@@ -118,9 +118,13 @@ d3.xml("../static/resources/songs_top_attr.gexf", "application/xml", function(ge
     .attr("class", "node")
     // .attr("r", 5)
     .attr('r', function(d) {
-      return 5
       // console.log(d.pagerank, d.pagerank*m + b)
-      // return d.pagerank*m + b
+      var score = d.score*m_score + b_score;
+      if (score == 0) {
+        return MIN_NODE
+      } else {
+        return score;
+      }
     })
     // .style("fill", function(d) { return color(d.group); })
     .style('fill', function(d) { 
@@ -154,5 +158,47 @@ d3.xml("../static/resources/songs_top_attr.gexf", "application/xml", function(ge
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
   });
+
+  $('#playlist-color').on('change', function() {
+    // alert('red!');
+    var color_scheme = $(this).val()
+    // alert(color_scheme);
+    if (color_scheme == 'modularity') {
+      node.style('fill', function(d) { 
+        // console.log(d.modularity)
+        return colors[d.modularity]; 
+      })
+    }
+    if (color_scheme == 'genre') {
+      node.style('fill', function(d) { 
+        // console.log(d.modularity)
+        var ind = genres.indexOf(d.genre)
+        return genre_colors[ind]; 
+      })
+    }
+  })
+
+  $('#playlist-size').on('change', function() {
+    // alert('red!');
+    var size_scheme = $(this).val()
+    // alert(size_scheme);
+    // if (size_scheme == 'pagerank') {
+    //   node.attr('r', function(d) {
+    //     // console.log(d.pagerank, d.pagerank*m + b)
+    //     return d.pagerank*m_pagerank + b_pagerank
+    //   })
+    // }
+    if (size_scheme == 'score') {
+      node.attr('r', function(d) {
+        // console.log(d.pagerank, d.pagerank*m + b)
+        var score = d.score*m_score + b_score;
+        if (score == 0) {
+          return MIN_NODE
+        } else {
+          return score;
+        }
+      })
+    }
+  })
 
 });

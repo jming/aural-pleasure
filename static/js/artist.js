@@ -1,5 +1,5 @@
 
-var width = 500,
+var width = 800,
     height = 500;
 
 var color = d3.scale.category20();
@@ -19,6 +19,17 @@ var colors = ['#9CF', '#FC9', '#FC9', '#99F', '#C9F', '#F9F', '#9FF', '#5CADFF',
 var more_colors = ['#4DA6FF', '#4D4DFF', '#A64DFF', '#FF4DFF', '#4DFFFF', '#0F87FF', '#0069D1', '#FF4DA6', '#4DFFA6', '#D16900', '#FF870F', '#FF4D4D', '#4DFF4D', '#A6FF4D', '#FFFF4D', '#FFA64D', '#FFF', '#000']
 var genre_colors = colors.concat(more_colors)
 var genres = ['randb-soul', 'easy-listening', 'pop', 'dance', 'soundtrack', 'jazz', 'rock', 'compilation', 'electronic', 'electronica', 'downtempo', 'alternative-indie', 'punk', 'alternative', 'reggae', 'dubstep', '2000s', 'live', 'blues', 'house', 'children', 'drum-and-bass', 'pop-rock', 'country', 'folk', 'tech-house', 'hard-rock-metal', 'hip-hop-rap', 'trance', 'spoken-word', 'no-genre', 'techno', 'deep-house', 'holiday']
+
+var MIN_PAGERANK = 0.000753958309765
+var MAX_PAGERANK = 0.0122727168834
+var MIN_SCORE = 0.0
+var MAX_SCORE = 169.0
+var MIN_NODE = 3.0
+var MAX_NODE = 15.0
+var m_pagerank = (MIN_NODE - MAX_NODE)/ (MIN_PAGERANK - MAX_PAGERANK)
+var b_pagerank = MIN_NODE - MIN_PAGERANK * m_pagerank
+var m_score = (MIN_NODE - MAX_NODE) / (MIN_SCORE - MAX_SCORE)
+var b_score = (MIN_NODE - MIN_SCORE) * m_score
 
 d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", function(gexf) {
 // d3.xml("../static/resources/playlists_artist_graph.gexf", "application/xml", function(gexf) {
@@ -105,17 +116,6 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
     .style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
   // console.log('link', link);
-
-  var MIN_PAGERANK = 0.000753958309765
-  var MAX_PAGERANK = 0.0122727168834
-  var MIN_SCORE = 0.0
-  var MAX_SCORE = 169.0
-  var MIN_NODE = 3.0
-  var MAX_NODE = 15.0
-  var m_pagerank = (MIN_NODE - MAX_NODE)/ (MIN_PAGERANK - MAX_PAGERANK)
-  var b_pagerank = MIN_NODE - MIN_PAGERANK * m_pagerank
-  var m_score = (MIN_NODE - MAX_NODE) / (MIN_SCORE - MAX_SCORE)
-  var b_score = (MIN_NODE - MIN_SCORE) * m_score
   // console.log(m,b)
 
   var node = svg.selectAll('.node')
@@ -192,7 +192,12 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
     if (size_scheme == 'score') {
       node.attr('r', function(d) {
         // console.log(d.pagerank, d.pagerank*m + b)
-        return d.score*m_score + b_score
+        var score = d.score*m_score + b_score;
+        if (score == 0) {
+          return MIN_NODE
+        } else {
+          return score;
+        }
       })
     }
   })
