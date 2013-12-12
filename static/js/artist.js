@@ -5,7 +5,7 @@ var width = 600,
 var color = d3.scale.category20();
 
 var force = d3.layout.force()
-    .charge(-1000)
+    .charge(-500)
     .gravity(1)
     .linkDistance(250)
     .size([width, height]);
@@ -25,8 +25,8 @@ var MIN_PAGERANK = 0.000753958309765
 var MAX_PAGERANK = 0.0122727168834
 var MIN_SCORE = 0.0
 var MAX_SCORE = 169.0
-var MIN_NODE = 2.0
-var MAX_NODE = 10.0
+var MIN_NODE = 1.0
+var MAX_NODE = 5.0
 var m_pagerank = (MIN_NODE - MAX_NODE)/ (MIN_PAGERANK - MAX_PAGERANK)
 var b_pagerank = MIN_NODE - MIN_PAGERANK * m_pagerank
 var m_score = (MIN_NODE - MAX_NODE) / (MIN_SCORE - MAX_SCORE)
@@ -114,7 +114,7 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
     .enter()
     .append('line')
     .attr('class', 'link')
-    .style("stroke-width", function(d) { return 0.1*Math.sqrt(d.value); });
+    .style("stroke-width", function(d) { return 0.1*d.value; });
 
   // console.log('link', link);
   // console.log(m,b)
