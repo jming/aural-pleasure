@@ -72,6 +72,7 @@ $.getJSON("../static/js/user_graph.json", function(data) {
     .attr("cy", function(d) { return d.y; });
 
   colorNodes('playlist', node);
+  sizeNodes('playlist', node);
 
   // force the graph
   force_playlist
