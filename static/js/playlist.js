@@ -130,25 +130,42 @@ d3.xml("../static/resources/songs_top_attr.gexf", "application/xml", function(ge
 
   var node = svg_playlist.selectAll('.node')
     .data(nodes)
-    .enter().append("circle")
+    .enter().append('g')
+    // .append("circle")
     .attr("class", "node")
+    .on('mouseover', mouseover)
+    .on('mouseout', mouseout)
     // .attr("r", 5)
-    .attr('r', function(d) {
-      // console.log(d.pagerank, d.pagerank*m + b)
-      return 5;
-    })
+    // .attr('r', function(d) {
+    //   // console.log(d.pagerank, d.pagerank*m + b)
+    //   return 5;
+    // })
     // .style("fill", function(d) { return color(d.group); })
-    .style('fill', function(d) { 
-      // console.log(d.modularity)
-      return colors[d.modularity]; 
-    })
+    // .style('fill', function(d) { 
+    //   // console.log(d.modularity)
+    //   return colors[d.modularity]; 
+    // })
     .call(force_playlist.drag);
+
+  node.append('circle')
+    .attr('r', MIN_NODE);
 
   node.append("title")
     .text(function(d) { return d.name; });
 
+  node.append("text")
+    .attr("x", 12)
+    .attr("dy", ".35em")
+    .text(function(d) { 
+      var str = d.name
+      return str; 
+    })
+    .style({opacity: '0.0'});
+
   node.attr("cx", function(d) { return d.x; })
     .attr("cy", function(d) { return d.y; });
+
+  colorNodes('playlist', node);
 
   console.log('node', node);
 
@@ -166,53 +183,41 @@ d3.xml("../static/resources/songs_top_attr.gexf", "application/xml", function(ge
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
+    // node.attr("cx", function(d) { return d.x; })
+    //     .attr("cy", function(d) { return d.y; });
+
+    node
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+  
   });
 
   $('#playlist-color').on('change', function() {
     // alert('red!');
-    var color_scheme = $(this).val()
-    // alert(color_scheme);
-    if (color_scheme == 'modularity') {
-      node.style('fill', function(d) { 
-        // console.log(d.modularity)
-        return colors[d.modularity]; 
-      })
-    }
-    if (color_scheme == 'genre') {
-      node.style('fill', function(d) { 
-        // console.log(d.modularity)
-        var ind = genres.indexOf(d.genre)
-        return genre_colors[ind]; 
-      })
-    }
+    colorNodes('playlist', node);
   })
 
   $('#playlist-size').on('change', function() {
     // alert('red!');
-    var size_scheme = $(this).val()
-    // alert(size_scheme);
-    // if (size_scheme == 'pagerank') {
-    //   node.attr('r', function(d) {
-    //     // console.log(d.pagerank, d.pagerank*m + b)
-    //     return d.pagerank*m_pagerank + b_pagerank
-    //   })
-    // }
-    if (size_scheme == 'none') {
-      return 5;
-    }
-    if (size_scheme == 'score') {
-      node.attr('r', function(d) {
-        // console.log(d.pagerank, d.pagerank*m + b)
-        var score = d.score*m_score + b_score;
-        if (score == 0) {
-          return MIN_NODE
-        } else {
-          return score;
-        }
-      })
-    }
+    sizeNodes('playlist', node);
   })
+
+  function mouseover() {
+    d3.select(this).select("circle").transition()
+      .duration(750)
+      .attr("r", 16);
+    d3.select(this).select('text').transition()
+      .duration(750)
+      .style({opacity: 1.0});
+  }
+
+  function mouseout() {
+    // d3.select(this).select("circle").transition()
+    //   .duration(750)
+    //   .attr("r", 8);
+    d3.select(this).select('text').transition()
+      .duration(750)
+      .style({opacity: 0.0});
+    sizeNodes('playlist', node);
+  }
 
 });
