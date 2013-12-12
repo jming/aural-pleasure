@@ -111,7 +111,7 @@ function sizeNodes(type, node) {
 
     if (size_scheme == 'occ') {
       node.select('circle').attr('r', function(d) {
-        var ans = m_occurrence * d.occ + b_occurence
+        var ans = m_occurrence * d.occ + b_occurrence
         return (ans == 0) ? MIN_NODE : ans
       })
     }
