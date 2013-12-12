@@ -298,14 +298,11 @@
 <script src="../static/novus/test/testScript.js"></script>
 <script>
 
-defaultChartTest("test10", randomData(30,2));
-
 //parse json file
 $.getJSON("test.json", function(data) {
     console.log(data);
     defaultChartTest("test10", data);
 });
-
 
 function defaultChartTest(container, data, margin) {
   nv.addGraph(function() {
@@ -328,69 +325,6 @@ function defaultChartTest(container, data, margin) {
 }
 
 
-function randomData(groups, points) { //# groups,# points per group
-  var data = [],
-      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
-      random = d3.random.normal();
-
-  for (i = 0; i < groups; i++) {
-    data.push({
-      key: 'Group ' + i,
-      values: []
-    });
-
-    for (j = 0; j < points; j++) {
-      data[i].values.push({
-        x: random(), 
-        y: random(), 
-        size: Math.random(), 
-        shape: shapes[j % 6]
-      });
-    }
-  }
-
-  return data;
-}
-
-
-function randomDataSloped(slope,intercept) { //# groups,# points per group
-  var data = [],
-      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
-      random = d3.random.normal();
-
-  var groups = 2, points = 10;
-  for (i = 0; i < groups; i++) {
-    data.push({
-      key: 'Group ' + i,
-      values: [],
-      slope: slope,
-      intercept: intercept
-    });
-
-    for (j = 0; j < points; j++) {
-      data[i].values.push({
-        x: random(), 
-        y: random(), 
-        size: Math.random(), 
-        shape: shapes[j % 6]
-      });
-    }
-  }
-
-  return data;
-}
-
-
-function tinyPoints() {
-  var rval = {key: "Tiny points", values: []};
-  for(var i =1; i < 20; i++) {
-    rval.values.push({
-       x: Math.random() * 1e-10,
-       y: Math.random() * 1e-10
-    });
-  }
-  return [rval];
-}
 </script>
 
   </body>
