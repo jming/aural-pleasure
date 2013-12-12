@@ -2,12 +2,23 @@
 var width = 600,
     height = 500;
 
+var k = Math.sqrt(200./(width*height))
+
 var color = d3.scale.category20();
 
 var force = d3.layout.force()
-    .charge(-1000)
+    // .charge(-10)
+    // .gravity(0.1)
+    .charge( -300)
     .gravity(1)
-    .linkDistance(250)
+    // .linkDistance(250)
+    .linkDistance(function(d) {
+      return d.target._children ? 100 : 30;
+    })
+    // .linkStrength(10)
+    // .linkStrength(function(d) {
+      // return 1./2*(d.value);
+    // })
     .size([width, height]);
 
 var svg = d3.select("#artist-d3").append("svg")
