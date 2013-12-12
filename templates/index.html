@@ -299,6 +299,12 @@
 
 defaultChartTest("test10", randomData(30,2));
 
+//parse json file
+$.getJSON("test.json", function(data) {
+    console.log(data);
+    defaultChartTest("test10", data);
+});
+
 
 function defaultChartTest(container, data, margin) {
   nv.addGraph(function() {
