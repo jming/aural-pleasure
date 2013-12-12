@@ -1,121 +1,45 @@
+/***********************************************************
+* 
+* The Truth Behind Aural Pleasure
+* CS109 Final Project
+* Jennifer Chen, Joy Ming, and Ryan Lee
+*
+* artist.js
+* code that sets up artist d3 graph
+* 
+************************************************************/
 
-var colors = ['#9CF', '#FC9', '#FC9', '#99F', '#C9F', '#F9F', '#9FF', '#5CADFF', '#1F8FFF', '#F9C', '#9FC', '#F8F1F', '#FFAD5C', '#F99', '#9F9', '#CF9', '#FF9', '#FC9', '#FC9']
-var more_colors = ['#4DA6FF', '#4D4DFF', '#A64DFF', '#FF4DFF', '#4DFFFF', '#0F87FF', '#0069D1', '#FF4DA6', '#4DFFA6', '#D16900', '#FF870F', '#FF4D4D', '#4DFF4D', '#A6FF4D', '#FFFF4D', '#FFA64D', '#FFF', '#000']
-var genre_colors = colors.concat(more_colors)
-var genres = ['randb-soul', 'easy-listening', 'pop', 'dance', 'soundtrack', 'jazz', 'rock', 'compilation', 'electronic', 'electronica', 'downtempo', 'alternative-indie', 'punk', 'alternative', 'reggae', 'dubstep', '2000s', 'live', 'blues', 'house', 'children', 'drum-and-bass', 'pop-rock', 'country', 'folk', 'tech-house', 'hard-rock-metal', 'hip-hop-rap', 'trance', 'spoken-word', 'no-genre', 'techno', 'deep-house', 'holiday']
-
-var MIN_PAGERANK = 0.000753958309765
-var MAX_PAGERANK = 0.0122727168834
-var MIN_SCORE = 0.0
-var MAX_SCORE = 169.0
-var MIN_NODE = 4.0
-var MAX_NODE = 16.0
-var m_pagerank = (MIN_NODE - MAX_NODE)/ (MIN_PAGERANK - MAX_PAGERANK)
-var b_pagerank = MIN_NODE - MIN_PAGERANK * m_pagerank
-var m_score = (MIN_NODE - MAX_NODE) / (MIN_SCORE - MAX_SCORE)
-var b_score = (MIN_NODE - MIN_SCORE) * m_score
-
-function colorNodes(type, node) {
-  var color_scheme = $('#' + type + '-color').val();
-  // alert(color_scheme);
-  if (color_scheme == 'modularity') {
-    node.select('circle').style('fill', function(d) { 
-      // console.log(d.modularity)
-      return colors[d.modularity]; 
-    })
-  }
-  if (color_scheme == 'genre') {
-    node.select('circle').style('fill', function(d) { 
-      // console.log(d.modularity)
-      var ind = genres.indexOf(d.genre)
-      return genre_colors[ind]; 
-    })
-  }
-}
-
-function sizeNodes(type, node) {
-  // alert('red!');
-    var size_scheme = $('#' + type + '-size').val()
-    if (size_scheme == 'none') {
-      node.select('circle').attr('r', MIN_NODE);
-      // return 5;
-    }
-    // alert(size_scheme);
-    if (size_scheme == 'pagerank') {
-      node.select('circle').attr('r', function(d) {
-        // console.log(d.pagerank, d.pagerank*m + b)
-        return d.pagerank*m_pagerank + b_pagerank
-      })
-    }
-    if (size_scheme == 'score') {
-      node.select('circle').attr('r', function(d) {
-        // console.log(d.pagerank, d.pagerank*m + b)
-        var score = d.score*m_score + b_score;
-        if (score == 0) {
-          return MIN_NODE
-        } else {
-          return score;
-        }
-      })
-    }
-}
+// defining the basic specs for the graph
 
 var width = 600,
     height = 500;
 
-// var k = Math.sqrt(200./(width*height))
-
 var color = d3.scale.category20();
 
 var force = d3.layout.force()
-    // .charge(-10)
-    // .gravity(0.1)
     .charge( -300)
     .gravity(1)
-    // .linkDistance(250)
     .linkDistance(function(d) {
       return d.target._children ? 100 : 30;
     })
-    // .linkStrength(10)
-    // .linkStrength(function(d) {
-      // return 1./2*(d.value);
-    // })
     .size([width, height]);
 
 var svg = d3.select("#artist-d3").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-// var colors = ['#3366FF', '#6633FF', '#C3F', '#F3C', '#3CF', '#003DF5', '#002EB8', '#F36', '#3FC', '#B88A00', '#F5B800', '#F63', '#3F6', '#6F3', '#CF3', '#FC3', '#FF3', '#3FC'];
-
-
-
+// read in the data for the artist graph with info
 d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", function(gexf) {
-// d3.xml("../static/resources/playlists_artist_graph.gexf", "application/xml", function(gexf) {
-  // d3.xml("../static/resources/artist_")
 
-  // console.log('gexf');
-  // console.log(gexf.documentElement.getElementsByTagName('node'));
-
+  // get the nodes from the xml file
   var xml_nodes = gexf.documentElement.getElementsByTagName('node');
-
-  console.log(xml_nodes);
   var node_names = new Array();
   var nodes = new Array();
-
+  
+  // extract information from each xml node
   for (n = 0; n< xml_nodes.length; n++) {
-  // for (n in xml_nodes) {
-    // console.log(n);
-    // console.log('stop');
-  // for (n =0; n < 10; n++) {
-    // console.log(xml_nodes[node].id);
     node = xml_nodes[n];
-    // console.log(node);
-    // if (n != 210)
     attrs = node.getElementsByTagName('attvalue')
-    // else
-      // attrs = ['no-genre', 0, 0, 0]
-    // console.log(attrs[0].getAttribute('value'))
     nodes.push({
       name: node.id,
       genre: attrs[0].getAttribute('value'),
@@ -123,50 +47,26 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
       modularity: attrs[2].getAttribute('value'),
       score: attrs[3].getAttribute('value')
     });
-
     node_names.push(node.id);
   }
 
-  console.log(nodes);
-
+  // get links from xml file
   var links = new Array();
-
   var xml_links = gexf.documentElement.getElementsByTagName('edge');
 
-  console.log(xml_links);
-
-  // for (l in xml_links) {
+  // extract information from each xml link
   for (l=0; l < xml_links.length-1; l++) {
     link = xml_links[l];
-    // console.log(link);
-    // console.log(link.id, link.getAttribute('source'), link.target, link.weight)
     var source_name = link.getAttribute('source');
     var target_name = link.getAttribute('target');
-    // console.log(source_name, target_name)
     links.push({
       source: node_names.indexOf(source_name),
       target: node_names.indexOf(target_name),
       value: link.getAttribute('weight')
-      // value: 1
     })
   }
 
-  console.log('links', links);
-
-  // console.log('-----');
-  // for (node in nodes) {
-  //   if (nodes[node] == undefined) {
-  //     console.log('derp' + node);
-  //   }
-  // }
-
-  // for (link in links) {
-  //   if (links[link] == undefined) {
-  //     console.log('herp' + link);
-  //   }
-  // }
-  // console.log('-----');
-
+  // create all of the links
   var link = svg.selectAll('.link')
     .data(links)
     .enter()
@@ -176,8 +76,7 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
       return 0.1*Math.sqrt(d.value); 
     });
 
-  // create the nodes
-
+  // create all of the nodes
   var node = svg.selectAll(".node")
     .data(nodes)
   .enter().append("g")
@@ -201,38 +100,35 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
   colorNodes('artist', node);
   sizeNodes('artist', node);
 
-  console.log('node', node);
+  // create the force graph
 
   force
     .nodes(nodes)
     .links(links)
-    // .on("tick", tick)
     .start();
 
-  console.log('force');
-
+  // initialize node placement  
   force.on("tick", function() {
     link.attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-    // node.attr("cx", function(d) { return d.x; })
-        // .attr("cy", function(d) { return d.y; });
-
    node
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   });
 
+  // handlers to change node colors
   $('#artist-color').on('change', function() {
-    // alert('red!');
     colorNodes('artist', node);
   })
 
+  // handlers to change node size
   $('#artist-size').on('change', function() {
     sizeNodes('artist', node);
   })
 
+  // function to handle mouseover expansion of circle and display of text
   function mouseover() {
     d3.select(this).select("circle").transition()
       .duration(750)
@@ -242,10 +138,8 @@ d3.xml("../static/resources/artist_graph_withinfo.gexf", "application/xml", func
       .style({opacity: 1.0});
   }
 
+  // function to handle mouseout shrinking of circle and hiding of text
   function mouseout() {
-    // d3.select(this).select("circle").transition()
-    //   .duration(750)
-    //   .attr("r", 8);
     d3.select(this).select('text').transition()
       .duration(750)
       .style({opacity: 0.0});
