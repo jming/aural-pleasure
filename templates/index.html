@@ -469,7 +469,7 @@ function defaultChartTest(container, data) {
 
        //make id
        label = mod["point"]['artist-song']
-       audid = label.replace(/\s/g, '');
+       audid = label.replace(/\s/g, '').replace(/'/g, '');
 
        // play the preview clip
        audioplay(mod["point"]['preview_link'],audid);
