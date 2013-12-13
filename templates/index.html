@@ -120,16 +120,6 @@
         <li data-target="#myCarousel" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
-        <div class="item active">
-          <img src="../static/resources/miley.jpg" style="height:125%;">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>What makes Miley Cyrus more popular than someone who is actually talented?</h1>
-              <p>How much of the popularity of music is determined by the press around the artist and from the inherent characteristics of the music?</p>
-              <br><br><br>
-            </div>
-          </div>
-        </div>
         <div class="item">
           <img src="../static/resources/mumford.jpg" style="height:125%;">
           <div class="container">
@@ -147,6 +137,16 @@
               <h1>Are genres a figment of our imagination, culture, or psychology?</h1>
               <p>Or can we analytically separate genres based on the inherent wave properties of sound <i>de novo</i>?</p>
               <br><br><br><br><br>
+            </div>
+          </div>
+        </div>
+        <div class="item active">
+          <img src="../static/resources/miley.jpg" style="height:125%;">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>What makes Miley Cyrus more popular than someone who is actually talented?</h1>
+              <p>How much of the popularity of music is determined by the press around the artist and from the inherent characteristics of the music?</p>
+              <br><br><br>
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@
           <p >The current graph shows a select 443 songs where the size of each dot is proportional to a popularity score based on the <a href='http://www.billboard.com/charts/year-end'>Billboard Year-End Hot 100 Charts</a>. MP3 preview files were taken from <a href='7digital.com'>7digital.com</a>. 
           <br/><br/>
           The sound waves which make up a specific song can be represented as a multi-dimensional vector through a fast fourier transform. We reduced the dimensionality of each vector with Principal Component Analysis (PCA). Each data point represents a song plotted on (against?) the first two principal components.</p>
-          <a class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist-interactions.ipynb">View inherent characteristics process book &raquo;</a><br><br>
+          <button><a class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb">View inherent characteristics process book &raquo;</a></button><br><br>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>See for yourself</h2>
@@ -289,7 +289,7 @@
         <div class="col-lg-4">
           <h2>What is this?</h2>
           <p >Each node represents an artist. Nodes are linked if the artists have perfromed together at the same event. The weight of the edges indicates the number of times that connected artists have played at the same event as another artist based on the <a href="http://www.songkick.com/developer">Songkick Api</a>. The nodes are initially colored by modularity, which are mathematically calculated clusters and sized by page rank, a measure of influence.</p>
-          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View artist interactions process book &raquo;</button><br><br>
+          <button class='btn' ><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist-interactions.ipynb">View artist interactions process book &raquo;</a></button><br><br>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>See for yourself</h2>
@@ -320,6 +320,7 @@
                 <h3>Color by:</h3>
                 <select class='form-control' id='playlist-color'>
                   <option value='modularity'>Modularity</option>
+                  <option value='year'>Year</option>
                   <option value='genre'>Genre</option>
                   <option value='none'>None</option>
                 </select>
@@ -345,7 +346,7 @@
         <div class="col-lg-4">
           <h2>What is this?</h2>
           <p >Each node represents a song. Nodes are linked if they appear together in at least one user playlist in the Spotify playlist sharing site <a href="http://playlists.net/">Share My Playlist</a>. The weight of the edges indicates the number of times that connected songs appear on the same playlist. The nodes are initially colored by modularity, which are mathematically calculated clusters.</p>
-          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/user-preferences.ipynb" role="button">View user preferences process book &raquo;</button><br><br>
+          <button class='btn'><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/user-preferences.ipynb">View user preferences process book &raquo;</a></button><br><br>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>See for yourself</h2>
