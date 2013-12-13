@@ -9,6 +9,6 @@ def main():
 
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+    return send_from_directory(os.path.join(app.root_path, 'static', 'resources'),
                                'favicon.ico', mimetype='image/png')
 
