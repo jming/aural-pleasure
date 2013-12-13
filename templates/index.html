@@ -434,6 +434,10 @@ function ToggleExplain(selector) {
       $(selector).offset().top+$(selector).height() - $(window).height()
       },500);
     }
+
+    $('[data-spy="scroll"]').each(function () {
+      var $spy = $(this).scrollspy('refresh')
+    });
   });
 }
 
@@ -494,9 +498,6 @@ function audioplay(src,audid){
     //set global variable for song pausing
     current_playing = audid;
 }
-
-$('div.explain .col-lg-4').each(function(){this.wrapInner("<div class='inside'></div>" );});
-
 
 </script>
 
