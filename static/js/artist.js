@@ -47,6 +47,8 @@ function pause_artists_network(){
 // function to start playing sim
 function start_artists_network(){
 
+  // alert('starting!');
+
   $('#start-artist-network').attr( "onclick", "pause_artists_network();" );
   $('#start-artist-network').html('<span class="glyphicon glyphicon-pause"></span> Pause');
   $.getJSON("../static/js/artist_graph.json", function(data) {
