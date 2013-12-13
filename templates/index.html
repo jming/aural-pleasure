@@ -98,7 +98,9 @@
                 <li><a href="#artist">Artist</a></li>
                 <li><a href="#user">User</a></li>
                 <li><a href="#impact">Conclusion</a></li>
-                <li><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/aural-pleasure.ipynb"><em>Notebook</em></a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li ><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/aural-pleasure.ipynb"><em>Process Book</em></a></li>
               </ul>
             </div>
           </div>
@@ -201,7 +203,7 @@
         <div class="col-md-5">
           <h2 class="featurette-heading">Inherent characteristics <span class="text-muted">of a song as a complex sound wave.</span></h2>
 
-          <p class="lead">443 songs from 35 genres displayed on a "similarity plane." R&amp;B Soul and Alternative Indie are inherenlty the same genre.</p><br/>
+          <p class="lead">443 songs from 35 genres displayed on a "similarity plane." The genres R&amp;B Soul and Alternative Indie are perhaps culturally constructed.</p><br/>
 
           <button class='btn' href="#" role="button" onclick='ToggleExplain("#inherent-explain");'>Expand Details &raquo;</button><br><br>
 
@@ -219,10 +221,10 @@
       <div class="row explain" id="inherent-explain">
         <div class="col-lg-4">
           <h2>What is this?</h2>
-          <p >The current graph shows 443 songs from the intersection of the 7digital data and the playlist data (see below). The size of each dot is proportional to a popularity score (see below). MP3 preview files were taken from 7digital.com. 
+          <p >The current graph shows 443 songs from the intersection of the 7digital data and the playlist data (see below). The size of each dot is proportional to a popularity score (see below). MP3 preview files were taken from <a href='7digital.com'>7digital.com</a>. 
           <br/><br/>
           The sound waves which make up a specific song can be represented as a multi-dimensional vector. To better visualize these data, we reduced the dimensionality with Principal Component Analysis (PCA). Each data point represents a song plotted on the first two principal components.</p>
-          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View inherent characteristics notebook &raquo;</button><br><br>
+          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist.ipynb" role="button">View inherent characteristics process book &raquo;</button><br><br>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>See for yourself</h2>
@@ -234,7 +236,7 @@
           <h2>What it means</h2>
           <p >We noted that the first principal component (x-axis) represents a soft-to-rock variation. Songs at the left extreme of the axis sound more classical and soft, whereas those on the rightmost extreme sound more hard and rock. The second principal component (y-axis) seems to represent tempo variation. Songs at the bottom extreme of the axis sound slower, whereas those on the topmost extreme sound faster. 
           <br/><br/>
-          Some sets of genres are more distinct than others. The most well-defined distinction was observed between songs classified as pop and those classifed as folk. These distinctions make intuitive sense from experience. Conversely, least well-defined distinction was observed between songs classified as R and B Soul and those classifed as Alternative Indie.  </p>
+          Some sets of genres are more distinct than others. The most well-defined distinction was observed between songs classified as pop and those classifed as folk. These distinctions make intuitive sense from experience. Conversely, least well-defined distinction was observed between songs classified as R and B Soul and those classifed as Alternative Indie. These genres may very well be a product of culture - there is not inherent basis for classifying a song as either R and B Soul or Alternative Indie. </p>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
@@ -248,7 +250,7 @@
         <!-- artist description -->
         <div class="col-md-5">
           <h2 class="featurette-heading">Artist interactions<span class="text-muted"> performing at the same event.</span></h2>
-          <p class="lead">Each of the nodes represents an artist. Each of the edges represents the number of times that artist has played at the same event as another artist based on the SongKick Api.</p>
+          <p class="lead">201 Artists in a collaboration network. The genre-barrier poses few constraints for artist performance collaboration. </p>
 
           <button class='btn' href="#" role="button" onclick='ToggleExplain("#artist-explain");'>Expand Details &raquo;</button><br><br>
 
@@ -277,16 +279,16 @@
       <div class="row explain" id="artist-explain">
         <div class="col-lg-4">
           <h2>What is this?</h2>
-          <p >............................................................................................................................................................................................................................................................................................................................................................................</p>
-          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View inherent characteristics notebook &raquo;</button><br><br>
+          <p >Each node represents an artist. Nodes are linked if the artists have perfromed together at the same event. The weight of the edges indicates the number of times that connected artists have played at the same event as another artist based on the <a href="http://www.songkick.com/developer">SongKick Api</a>. The nodes are initially colored by modularity, which are mathematically calculated clusters.</p>
+          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View artist interactions process book &raquo;</button><br><br>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>See for yourself</h2>
-          <p >............................................................................................................................................................................................................................................................................................................................................................................</p>
+          <p >Hover over nodes to view the names of artists. Click and drag to rearrange the network. Use the Color by and Size by options to change the display. Color nodes based on mathematically calcualted modularity (generated without a priori knowledge of artist characteristics). Or, color nodes by genre - the genre in which most songs by that artist are classified. Size nodes based on Page Rank. Or, size nodes by Popularity Score. We have less data on each artist's popularity.   </p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>What it means</h2>
-          <p >............................................................................................................................................................................................................................................................................................................................................................................ </p>
+          <p >Artists in the same modularity (calculated with Gephi) perfrom more often together. However, it was surprising that the genre categorizations did not appear clustered in the same netwrok. This may be because we have too many genre calssifications - some genres could really be grouped into one. This may point towards the fact that many artists choose to collaborate with others outside of thier genre. There seems to be two classes or popular artists. Some, such as Survivor, prefer to perform alone - they appear on the sides of the collaboration network. Others, such as The Black Eyed Peas, have performed with many other artists. It is interesting to note how these two styles can both accheive popularity.  </p>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
@@ -296,7 +298,7 @@
         <!-- user preferences description -->
         <div class="col-md-5">
           <h2 class="featurette-heading">User preferences <span class="text-muted">for songs on the same playlists.</span></h2>
-          <p class="lead">Each of the nodes is a song. Each of the edges is the number of times a song appears on the same playlist as another song determined by the Share My Playlist API.
+          <p class="lead">
           </p>
 
           <button class='btn' href="#" role="button" onclick='ToggleExplain("#user-explain");'>Expand Details &raquo;</button><br><br>
@@ -328,13 +330,8 @@
       <div class="row explain" id="user-explain">
         <div class="col-lg-4">
           <h2>What is this?</h2>
-          <p >.................................................
-            ....................................................
-            .......................................................
-            .........................................................
-            .............................................................
-            ..........................................................................................</p>
-          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb" role="button">View inherent characteristics notebook &raquo;</button><br><br>
+          <p >Each node represents a song. Nodes are linked if they appear together in at least one user playlist in the Spotify playlist sharing site <a href="http://playlists.net/">Share My Playlist</a>. The weight of the edges indicates the number of times that connected songs appear on the same playlist. The nodes are initially colored by modularity, which are mathematically calculated clusters.</p>
+          <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/user-preferences.ipynb" role="button">View user preferences process book &raquo;</button><br><br>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>See for yourself</h2>
