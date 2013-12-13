@@ -12,7 +12,7 @@
 // defining the basic specs for the graph
 
 var width = 600,
-    height = 500;
+    height = 450;
 
 var color = d3.scale.category20();
 

@@ -64,6 +64,12 @@
       div.explain button a {
         color:black;
       }
+
+      div.explain .col-lg-4 .inside{
+        height:300px;
+        overflow:scroll;
+      }
+
       .navbar-wrapper .navbar {
           border-radius: 0px;
         }
@@ -169,14 +175,11 @@
     <div class="container marketing">
 
       <div class="container featurette row" id="about">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <h2 class="featurette-heading"> A 3-pronged approach <span class="text-muted">to the analysis of music.</span></h2>
         <br><p> Music is a complex amalgamation of sounds that provides a platform on which we can exercise a variety of the data science techniques we have learned this semester. This analysis is convenient because of the availability of a rich dataset - with a vast number of songs and an overwhelming amount of data on both inherent and external characteristics for each song.</p><br>
       </div>
-      <div class="col-md-6">
-        <iframe width="560" height="315" src="//www.youtube.com/embed/lm2MiaSTqRc" frameborder="0" allowfullscreen></iframe>
-
-      </div>
+      
     </div>
 
       <!-- Three columns of text below the carousel -->
@@ -222,7 +225,7 @@
         <!-- inherent d3 graph -->
         <div class="col-md-7">
            <div id="test10" style="height: 500px;">
-            <svg></svg>
+            <svg ></svg>
             <audio id="start-play" preload='auto'></audio>
           </div>
         </div>
@@ -230,23 +233,23 @@
 
       <div class="row explain" id="inherent-explain">
         <div class="col-lg-4">
-          <h2>What is this?</h2>
+          <h2>What is this?</h2><div class='inside'>
           <p >The current graph shows a select 443 songs where the size of each dot is proportional to a popularity score based on the <a href='http://www.billboard.com/charts/year-end'>Billboard Year-End Hot 100 Charts</a>. MP3 preview files were taken from <a href='7digital.com'>7digital.com</a>. 
           <br/><br/>
           The sound waves which make up a specific song can be represented as a multi-dimensional vector through a fast fourier transform. We reduced the dimensionality of each vector with Principal Component Analysis (PCA). Each data point represents a song plotted against the first two principal components.</p>
-          <button class='btn' role='button'><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb">View inherent characteristics process book &raquo;</a></button><br><br>
+          <button class='btn' role='button'><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/inherent-characteristics.ipynb">View inherent characteristics process book &raquo;</a></button><br><br></div>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <h2>See for yourself</h2>
+          <h2>See for yourself</h2><div class='inside'>
           <p >Hover over each song to listen to a preview. But be patient - some preview clips may be softer and load more slowly. Listen to songs on the extremes of each axis and note any differences or similarities. Songs that are close together on the PCA plane should sound similar. 
           <br/><br/>
-          Click the genre labels to toggle the display of songs categorized in each genre by 7digital. Double click on the genre label to show songs solely from that genre. Start with hiding all genres except "punk" and "folk". These are the genres that are most distinct! </p>
+          Click the genre labels to toggle the display of songs categorized in each genre by 7digital. Double click on the genre label to show songs solely from that genre. Start with hiding all genres except "punk" and "folk". These are the genres that are most distinct! </p></div>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <h2>What it means</h2>
+          <h2>What it means</h2><div class='inside'>
           <p >We noted that the first principal component (x-axis) represents a soft-to-rock variation. Songs at the left extreme of the axis sound more classical and soft, whereas those on the rightmost extreme sound more hard and rock. The second principal component (y-axis) seems to represent tempo variation. Songs at the bottom extreme of the axis sound slower, whereas those on the topmost extreme sound faster. 
           <br/><br/>
-          Some sets of genres are more distinct than others. The most well-defined distinction was observed between songs classified as pop and those classifed as folk. These distinctions make intuitive sense from experience. Conversely, least well-defined distinction was observed between songs classified as R and B Soul and those classifed as Alternative Indie. These genres may very well be a product of culture - there is not inherent basis for classifying a song as either R and B Soul or Alternative Indie. </p>
+          Some sets of genres are more distinct than others. The most well-defined distinction was observed between songs classified as pop and those classifed as folk. These distinctions make intuitive sense from experience. Conversely, least well-defined distinction was observed between songs classified as R and B Soul and those classifed as Alternative Indie. These genres may very well be a product of culture - there is not inherent basis for classifying a song as either R and B Soul or Alternative Indie. </p></div>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
@@ -292,19 +295,19 @@
 
       <div class="row explain" id="artist-explain">
         <div class="col-lg-4">
-          <h2>What is this?</h2>
+          <h2>What is this?</h2><div class='inside'>
           <p >Each node represents an artist. Nodes are linked if the artists have performed together at the same event. The weight of the edges indicates the number of times that connected artists have played at the same event as another artist based on the <a href="http://www.songkick.com/developer">Songkick Api</a>. The nodes are initially colored by modularity, which are mathematically calculated clusters and sized by PageRank, a measure of influence.</p>
-          <button class='btn' ><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist-interactions.ipynb">View artist interactions process book &raquo;</a></button><br><br>
+          <button class='btn' ><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist-interactions.ipynb">View artist interactions process book &raquo;</a></button><br><br></div>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <h2>See for yourself</h2>
-          <p >Hover over nodes to view the names of the artists in the network. Click and drag on one of the nodes to rearrange the network. Use the "Color by" and "Size by" options to change the display. You can color nodes based on mathematically calculated modularity (generated without a priori knowledge of artist characteristics). Or, you can color nodes by genre - the genre in which most songs by that artist are classified. You can size nodes based on PageRank or by popularity score, as determined by Billboard Year-End Hot 100. </p>
+          <h2>See for yourself</h2><div class='inside'>
+          <p >Hover over nodes to view the names of the artists in the network. Click and drag on one of the nodes to rearrange the network. Use the "Color by" and "Size by" options to change the display. You can color nodes based on mathematically calculated modularity (generated without a priori knowledge of artist characteristics). Or, you can color nodes by genre - the genre in which most songs by that artist are classified. You can size nodes based on PageRank or by popularity score, as determined by Billboard Year-End Hot 100. </p></div>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <h2>What it means</h2>
+          <h2>What it means</h2><div class='inside'>
           <p >Artists in the same modularity (calculated with Gephi) perform together more often. However, it was surprising that the genre categorizations did not appear clustered in the same network. This may be because we have too many genre classifications - some genres could really be grouped into one. This may point towards the fact that many artists choose to collaborate with others outside of their genre. 
             <br><br>
-          There seems to be two classes or popular artists. Some, such as Survivor, prefer to perform alone - they appear on the sides of the collaboration network. Others, such as The Black Eyed Peas, have performed with many other artists. It is interesting to note how these two styles can both achieve popularity.  </p>
+          There seems to be two classes or popular artists. Some, such as Survivor, prefer to perform alone - they appear on the sides of the collaboration network. Others, such as The Black Eyed Peas, have performed with many other artists. It is interesting to note how these two styles can both achieve popularity.  </p></div>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
@@ -349,37 +352,44 @@
 
       <div class="row explain" id="user-explain">
         <div class="col-lg-4">
-          <h2>What is this?</h2>
+          <h2>What is this?</h2><div class='inside'>
           <p >Each node represents a song. Songs are linked if they appear together in at least one user playlist in the Spotify playlist sharing site <a href="http://playlists.net/">Share My Playlist</a>. The weight of the edges indicates the number of times that connected songs appear on the same playlist. The nodes are initially colored by modularity, which are mathematically calculated clusters.</p>
-          <button class='btn'><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/user-preferences.ipynb">View user preferences process book &raquo;</a></button><br><br>
+          <button class='btn'><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/user-preferences.ipynb">View user preferences process book &raquo;</a></button><br><br></div>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <h2>See for yourself</h2>
-          <p >Hover over nodes to view the names of artists and songs. Click and drag to rearrange the network. Use the "Color by" and "Size by" options to change the display. Color nodes are by default based on mathematically calculated modularity (generated without a priori knowledge of song characteristics). Alternative, color nodes by genre or year (older songs are darker). Nodes are initially sized by occurrence, which is the total number of playlists on which the particular song appears. You can also size nodes based on popularity score or closeness centrality. </p>
+          <h2>See for yourself</h2><div class='inside'>
+          <p >Hover over nodes to view the names of artists and songs. Click and drag to rearrange the network. Use the "Color by" and "Size by" options to change the display. Color nodes are by default based on mathematically calculated modularity (generated without a priori knowledge of song characteristics). Alternative, color nodes by genre or year (older songs are darker). Nodes are initially sized by occurrence, which is the total number of playlists on which the particular song appears. You can also size nodes based on popularity score or closeness centrality. </p></div>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <h2>What it means</h2>
-          <p>There does not seem to be much correspondence between calculated clusters and the genres. One likely reason is that there are too many genre classifications - some could be grouped together for more informative analyses. But this observation may also point to the fact that playlists are not always meant to hold similar songs, rather users may seek to create a diverse collection of songs.</p>
+          <h2>What it means</h2><div class='inside'>
+            <p>There does not seem to be much correspondence between calculated clusters and the genres. One likely reason is that there are too many genre classifications - some could be grouped together for more informative analyses. But this observation may also point to the fact that playlists are not always meant to hold similar songs, rather users may seek to create a diverse collection of songs.</p>
 
-          <p>On the other hand, it is interesting to visualize the network with nodes sized by centrality and colored by year. It seems that songs that are less recent tend to have a higher centrality value. Understandably, there are many more songs in the data set that are recent rather than old, therefore there is more opportunity for the recent songs to have a range of centralities. In addition, it is important to note that our data set has a size of 276, which is still relatively small and renders the p-value slightly less reliable.</p>
+            <p>On the other hand, it is interesting to visualize the network with nodes sized by centrality and colored by year. It seems that songs that are less recent tend to have a higher centrality value. Understandably, there are many more songs in the data set that are recent rather than old, therefore there is more opportunity for the recent songs to have a range of centralities. In addition, it is important to note that our data set has a size of 276, which is still relatively small and renders the p-value slightly less reliable.</p>
 
-          <p>However, it is also reasonable to consider that older songs that are less appreciated will not persist in many playlists; only the timeless classics will remain and be highly represented in current-day playlists. On the other hand, newer songs have yet to be tried in various playlists and have not yet had the time to rise to prominence above their peers (i.e. be featured in more playlists than usual).</p>
+            <p>However, it is also reasonable to consider that older songs that are less appreciated will not persist in many playlists; only the timeless classics will remain and be highly represented in current-day playlists. On the other hand, newer songs have yet to be tried in various playlists and have not yet had the time to rise to prominence above their peers (i.e. be featured in more playlists than usual).</p>
 
-          <p>We saw a similar phenomenon in HW3, where older movies tended to have higher ratings, whereas those for newer movies were across the board. This observation constitutes a form of selection bias, by which only old (i.e. released before the use of online movie databases) movies that were good are worth being memorialized in a movie database, whereas all new movies have the chance to be criticized/praised on the database. The platform of online playlists acts similarly, memorializing the songs that are deemed classics.</p>
+            <p>We saw a similar phenomenon in HW3, where older movies tended to have higher ratings, whereas those for newer movies were across the board. This observation constitutes a form of selection bias, by which only old (i.e. released before the use of online movie databases) movies that were good are worth being memorialized in a movie database, whereas all new movies have the chance to be criticized/praised on the database. The platform of online playlists acts similarly, memorializing the songs that are deemed classics.</p>
+            </div>
 
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
 
-      <hr class="featurette-divider">
+      <hr class="featurette-divider" id="impact">
 
       <!-- /END THE FEATURETTES -->
+      <div class="row featurette">
+      <div class="col-md-7" style="margin-top: 60px;">
+        <iframe width="640" height="360" src="//www.youtube.com/embed/lm2MiaSTqRc" frameborder="0" allowfullscreen></iframe>
+      </div>
 
-      <div class="container" id="impact">
-        <h1>Conclusions</h1>
+      <div class="container col-md-5" >
+        <h2 class="featurette-heading">Conclusions</h2>
         <p>We can determine some genres using inherent characteristics of song sound waves. With this method, the difference between some genres are more distictive than others. Secondly, we have explored artist interactions, showing that artists do not necessary cluster by genre as expected, and that popular artists may either choose to collaborate or be lone wolves. Lastly, it is likely that users prefer many different genres in their playlists. It is also interesting that playlists can highlight the timeless classics, helping us identify songs that are popular beyond being part of a trend.</p> 
         <p>This project can have many benefits. It can help artists and producers in the music industry produce songs that are more likely to be in the top 40 category, thus increasing revenue. Furthermore, this project can enhance current methods of categorizing and classifying songs, thus making music management/organization software more effective. And finally, it can help individuals find songs that will appeal to their tastes or moods, enhancing their listening experience like never before - true pleasure indeed.</p>
       </div>
+
+    </div>
 
       <hr class="featurette-divider">
 
@@ -485,6 +495,7 @@ function audioplay(src,audid){
     current_playing = audid;
 }
 
+$('div.explain .col-lg-4').each(function(){this.wrapInner("<div class='inside'></div>" );});
 
 
 </script>

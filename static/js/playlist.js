@@ -12,7 +12,7 @@
 // defining the basic specs for the graph
 
 var width_playlist = 600,
-    height_playlist = 500;
+    height_playlist = 450;
 
 var color_playlist = d3.scale.category20();
 
