@@ -174,19 +174,19 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
+          <img src="../static/resources/fourrier.png" alt="Fourrier">
           <h2>Inherent Characteristics</h2>
           <p>Since music is blah we decided that we wanted to investigate blahblah</p>
           <p><a class="btn btn-default" href="#inherent" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
+          <img src="../static/resources/artists.jpg" alt="Artists">
           <h2>Artist Interactions</h2>
           <p>Since music is blah we decided that we wanted to investigate blahblah</p>
           <p><a class="btn btn-default" href="#artist" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
+          <img src="../static/resources/user-pref.jpg" alt="User prefs">
           <h2>User Preferences</h2>
           <p>Since music is blah we decided that we wanted to investigate blahblah</p>
           <p><a class="btn btn-default" href="#user" role="button">View details &raquo;</a></p>
@@ -223,7 +223,7 @@
           <h2>What is this?</h2>
           <p >The current graph shows 443 songs from the intersection of the 7digital data and the playlist data (see below). The size of each dot is proportional to a popularity score (see below). MP3 preview files were taken from <a href='7digital.com'>7digital.com</a>. 
           <br/><br/>
-          The sound waves which make up a specific song can be represented as a multi-dimensional vector. To better visualize these data, we reduced the dimensionality with Principal Component Analysis (PCA). Each data point represents a song plotted on the first two principal components.</p>
+          The sound waves which make up a specific song can be represented as a multi-dimensional vector. To better visualize these data, we reduced the dimensionality with Principal Component Analysis (PCA). Each data point represents a song plotted on the first two principal components. (arbitrary units)</p>
           <button class='btn' href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/artist.ipynb" role="button">View inherent characteristics process book &raquo;</button><br><br>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
@@ -300,7 +300,7 @@
         <!-- user preferences description -->
         <div class="col-md-5">
           <h2 class="featurette-heading">User preferences <span class="text-muted">for songs on the same playlists.</span></h2>
-          <p class="lead">
+          <p class="lead">276 songs from 806 playlists in a user preference network. The popular songs are more central in the network (or a better conclusion).
           </p>
 
           <button class='btn' href="#" role="button" onclick='ToggleExplain("#user-explain");'>Expand Details &raquo;</button><br><br>
@@ -340,11 +340,11 @@
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>See for yourself</h2>
-          <p >............................................................................................................................................................................................................................................................................................................................................................................</p>
+          <p >Hover over nodes to view the names of artists and songs. Click and drag to rearrange the network. Use the Color by and Size by options to change the display. Color nodes based on mathematically calcualted modularity (generated without a priori knowledge of song characteristics). Or, color nodes by genre. Nodes are initially size by occurence, which is the total number of playlists on which the particular song appears. Or, Size nodes based on Popularity Score. We have less data on each artist's popularity, so some nodes. Or, size nodes by centrality.   </p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>What it means</h2>
-          <p >............................................................................................................................................................................................................................................................................................................................................................................</p>
+          <p >Songs in the same modularity (calculated with Gephi) are more often put together in the same playlist. It appears that there is little correspondance between the calculated clusters and the genres. This may be because we have too many genre calssifications - some genres could really be grouped into one. This may also point towards the fact that many user prefer to put songs of many different genres in a playlist. As expected, the most popular songs cluster in the middle because many user should all list them, and they would be linked to many other songs in many different playlists. Furthermore, as expected, nodes that are most central (calcated by closeness centrality) also appear in the center of the network. </p>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 
@@ -355,6 +355,7 @@
 
       <div class="container" id="impact">
         <h1>Conclusions</h1>
+        <p>Firstly, we have shown that we can determine some genres using inherent characteristics of song sound waves. With this method, the difference between some genres are more distictive than others. Secondly, we have explored artist interactions, showing that artist do not necessary cluster by genre as expected, and that popular artists may either choose to collaborate or be lone wolves. Lastly, we have shown that user prefer many different genres in their playlists and that popular songs are in the center of the user preference song network. 
         <p>This project can have many benefits. It can help artists and producers in the music industry produce songs that are more likely to be in the top 40 category, thus increasing revenue. This project can enhance current methods of categorizing and classifying songs, thus making music management/organization software more effective. And finally, it can help individuals find songs that will appeal to their tastes or moods, enhancing their listening experience like never before.</p>
       </div>
 
