@@ -328,7 +328,7 @@
               <td>
                 <h3>Size by:</h3>
                 <select class='form-control' id='playlist-size'>
-                  <option value='occ'>Occurence</option>
+                  <option value='occ'>Occurrence</option>
                   <option value='score'>Score</option>
                   <option value='cent'>Closeness centrality</option>
                   <option value='none'>None</option>
@@ -345,12 +345,12 @@
       <div class="row explain" id="user-explain">
         <div class="col-lg-4">
           <h2>What is this?</h2>
-          <p >Each node represents a song. Nodes are linked if they appear together in at least one user playlist in the Spotify playlist sharing site <a href="http://playlists.net/">Share My Playlist</a>. The weight of the edges indicates the number of times that connected songs appear on the same playlist. The nodes are initially colored by modularity, which are mathematically calculated clusters.</p>
+          <p >Each node represents a song. Songs are linked if they appear together in at least one user playlist in the Spotify playlist sharing site <a href="http://playlists.net/">Share My Playlist</a>. The weight of the edges indicates the number of times that connected songs appear on the same playlist. The nodes are initially colored by modularity, which are mathematically calculated clusters.</p>
           <button class='btn'><a href="http://nbviewer.ipython.org/github/jming/aural-pleasure/blob/master/static/resources/user-preferences.ipynb">View user preferences process book &raquo;</a></button><br><br>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>See for yourself</h2>
-          <p >Hover over nodes to view the names of artists and songs. Click and drag to rearrange the network. Use the "Color by" and "Size by" options to change the display. Color nodes based on mathematically calcualted modularity (generated without a priori knowledge of song characteristics). Or, color nodes by genre. Nodes are initially size by occurence, which is the total number of playlists on which the particular song appears. You can size nodes based on Popularity Score or closeness centrality, how influential they are in the network. </p>
+          <p >Hover over nodes to view the names of artists and songs. Click and drag to rearrange the network. Use the "Color by" and "Size by" options to change the display. Color nodes are by default based on mathematically calculated modularity (generated without a priori knowledge of song characteristics). Alternative, color nodes by genre or year. Nodes are initially sized by occurrence, which is the total number of playlists on which the particular song appears. You can also size nodes based on popularity score or closeness centrality. </p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <h2>What it means</h2>
