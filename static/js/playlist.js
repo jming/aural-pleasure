@@ -33,21 +33,21 @@ var svg_playlist = d3.select("#playlist-d3").append("svg")
 function resume_user_preferences_network(){
   force_playlist.start();
   $('#start-user-network').attr( "onclick", "pause_user_preferences_network();" );
-  $('#start-user-network').html('Pause');
+  $('#start-user-network').html('<span class="glyphicon glyphicon-pause"></span> Pause');
 }
 
 // function to stop playing sim
 function pause_user_preferences_network(){
   force_playlist.stop();
   $('#start-user-network').attr( "onclick", "resume_user_preferences_network();" );
-  $('#start-user-network').html('Resume');
+  $('#start-user-network').html('<span class="glyphicon glyphicon-play"></span> Resume');
 }
 
 // function to start playing sim
 function start_user_preferences_network(){
 
   $('#start-user-network').attr( "onclick", "pause_user_preferences_network();" );
-  $('#start-user-network').html('Pause');
+  $('#start-user-network').html('<span class="glyphicon glyphicon-pause"></span> Pause');
 
   // read in the data for the user preferences graph
   $.getJSON("../static/js/user_graph.json", function(data) {
