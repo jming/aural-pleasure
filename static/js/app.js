@@ -37,7 +37,7 @@ var b_score = MIN_NODE - MIN_SCORE * m_score
 var m_centrality = (MIN_NODE - MAX_NODE) / (MIN_CENTRALITY - MAX_CENTRALITY)
 var b_centrality = MIN_NODE - MIN_CENTRALITY * m_centrality
 var m_occurrence = (MIN_NODE - MAX_NODE) / (MIN_OCCURENCE - MAX_OCCURENCE)
-var b_occurence = MIN_NODE - MIN_OCCURENCE * m_occurrence
+var b_occurrence = MIN_NODE - MIN_OCCURENCE * m_occurrence
 
 function calcSize(min, max, x) {
   var m = (MIN_NODE - MAX_NODE) / (min - max)
