@@ -16,13 +16,13 @@ var width = 600,
 
 var color = d3.scale.category20();
 
-var force = d3.layout.force()
+/*var force = d3.layout.force()
     .charge(-500)
     .gravity(1)
     .linkDistance(function(d) {
       return d.target._children ? 100 : 30;
     })
-    .size([width, height]);
+    .size([width, height]);*/
 
 var svg = d3.select("#artist-d3").append("svg")
     .attr("width", width)
