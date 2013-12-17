@@ -19,9 +19,9 @@ var width = 600,
 var color = d3.scale.category20();
 
 var force = d3.layout.force()
-    .charge(-120)
+    .charge(-600)
     .gravity(1)
-    .linkDistance(30)
+    .linkDistance(100)
     .size([width, height]);
 
 var svg = d3.select("#artist-d3").append("svg")
@@ -51,6 +51,9 @@ function pause_artists_network(){
 
 // function to start playing sim
 function start_artists_network(){
+
+  //remove screenshot
+  $('#artist-d3 img').remove()
 
   // alert('starting!');
 
@@ -94,6 +97,10 @@ function start_artists_network(){
 
     colorNodes('artist', node);
     sizeNodes('artist', node);
+
+    //border color
+    node.selectAll('circle').style("stroke", "black")
+     .style("stroke-width", .1);
 
     // create the force graph
     force

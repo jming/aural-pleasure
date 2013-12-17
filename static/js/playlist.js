@@ -17,16 +17,22 @@ var width_playlist = 600,
 var color_playlist = d3.scale.category20();
 
 var force_playlist = d3.layout.force()
-    .charge( -300)
+    .charge( -600)
     .gravity(1)
-    .linkDistance(function(d) {
-      return d.target._children ? 100 : 30;
-    })
+    .linkDistance(100)
     .size([width_playlist, height_playlist]);
 
 var svg_playlist = d3.select("#playlist-d3").append("svg")
     .attr("width", width_playlist)
-    .attr("height", height_playlist);
+    .attr("height", height_playlist)
+    .append('g')
+    .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom))
+    .append('g');
+
+function zoom() {
+  console.log(d3.event);
+  svg_playlist.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
 
 
 // function to resume playing sim
@@ -45,6 +51,8 @@ function pause_user_preferences_network(){
 
 // function to start playing sim
 function start_user_preferences_network(){
+  //remove screenshot
+  $('#playlist-d3 img').remove()
 
   $('#start-user-network').attr( "onclick", "pause_user_preferences_network();" );
   $('#start-user-network').html('<span class="glyphicon glyphicon-pause"></span> Pause');
@@ -63,7 +71,8 @@ function start_user_preferences_network(){
       .enter()
       .append('line')
       .attr('class', 'link')
-      .style("stroke-width", function(d) { return 0.1*Math.sqrt(d.value); });
+      .style("stroke-width", function(d) { return 0.1*Math.sqrt(d.value); })
+      .style("stroke-opacity", "0.1");
 
     // create nodes
     var node = svg_playlist.selectAll('.node')
@@ -113,6 +122,12 @@ function start_user_preferences_network(){
     
     });
 
+    console.log(node);
+
+        //border color
+    node.selectAll('circle').style("stroke", "black")
+     .style("stroke-width", .1);
+
     // change color of nodes
     $('#playlist-color').on('change', function() {
       colorNodes('playlist', node);
@@ -137,8 +152,8 @@ function start_user_preferences_network(){
     // handles moving mouse to node
     function mouseover() {
       d3.select(this).select("circle").transition()
-        .duration(200)
-        .attr("r", 16);
+        .duration(200);
+        //.attr("r", 16);
       // d3.select(this).select('text').transition()
       //   .duration(200)
       //   .style({opacity: 1.0});

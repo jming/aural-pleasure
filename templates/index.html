@@ -55,6 +55,16 @@
         position:absolute;*/
       }
 
+      img.screenshot{
+        cursor: pointer; 
+        width: 100%;
+        position:absolute;
+      }
+
+      svg{
+        cursor: all-scroll;
+      }
+
       .featurette-heading{
         margin-top: 50px;
       }
@@ -263,6 +273,7 @@
       <div class="row featurette">
         <!-- artist d3 graph -->
         <div class="col-md-7" id="artist-d3" >
+          <img class="screenshot" onclick="start_artists_network();" src="../static/resources/ss_artist.png" />
         </div>
         <!-- artist description -->
         <div class="col-md-5">
@@ -351,6 +362,7 @@
         </div>
         <!-- user d3 graph -->
         <div class="col-md-7" id='playlist-d3'>
+          <img class="screenshot" onclick='start_user_preferences_network();' src="../static/resources/ss_playlist.png"/>
         </div>
       </div>
 
@@ -476,7 +488,8 @@ function defaultChartTest(container, data) {
 
        //make id
        label = mod["point"]['artist-song']
-       audid = label.replace(/\s/g, '').replace(/'/g, '');
+       console.log(label);
+       audid = label.replace(/\W/g, '');
 
        // play the preview clip
        audioplay(mod["point"]['preview_link'],audid);
