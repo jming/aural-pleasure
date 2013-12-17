@@ -203,21 +203,21 @@ function colorNodes(type, node) {
       .data(genres)
     .enter().append("g")
       .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+      .attr("transform", function(d, i) { return "translate(0," + i * 13 + ")"; });
 
     legend.append("rect")
-        .attr("x", width - 18)
-        .attr("width", 18)
-        .attr("height", 18)
+        .attr("x", width - 10)
+        .attr("width", 10)
+        .attr("height", 10)
         .style("fill", function(d) {
           var ind = genres.indexOf(d)
           return genre_colors[ind];
         });
 
     legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9)
-        .attr("dy", ".35em")
+        .attr("x", width - 12)
+        .attr("y", 5)
+        .attr("dy", ".25em")
         .style("text-anchor", "end")
         .text(function(d) { return d; });
   }
@@ -234,20 +234,20 @@ function colorNodes(type, node) {
       .data(d3.range(1982,2012))
     .enter().append("g")
       .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+      .attr("transform", function(d, i) { return "translate(0," + i * 15 + ")"; });
 
     legend.append("rect")
-        .attr("x", width - 18)
-        .attr("width", 18)
-        .attr("height", 18)
+        .attr("x", width - 10)
+        .attr("width", 10)
+        .attr("height", 10)
         .style("fill", function(d) {
           return color_gradient[d-1982];
         });
 
     legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9)
-        .attr("dy", ".35em")
+        .attr("x", width - 12)
+        .attr("y", 5)
+        .attr("dy", ".25em")
         .style("text-anchor", "end")
         .text(function(d) { return d; });
   }
