@@ -122,8 +122,8 @@ var MAX_CENTRALITY = 2.14073322214
 var MAX_OCCURENCE = 48
 var MIN_OCCURENCE = 11
 
-var MIN_NODE = 4.0
-var MAX_NODE = 18.0
+var MIN_NODE = 1.0;
+var MAX_NODE = 3.0;
 
 var m_pagerank = (MIN_NODE - MAX_NODE) / (MIN_PAGERANK - MAX_PAGERANK)
 var b_pagerank = MIN_NODE - MIN_PAGERANK * m_pagerank
@@ -218,3 +218,4 @@ function sizeNodes(type, node) {
       })
     }
 }
+

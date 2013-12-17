@@ -9,6 +9,8 @@
 * 
 ************************************************************/
 
+
+
 // defining the basic specs for the graph
 
 var width = 600,
@@ -17,17 +19,21 @@ var width = 600,
 var color = d3.scale.category20();
 
 var force = d3.layout.force()
-    .charge(-500)
+    .charge(-120)
     .gravity(1)
-    .linkDistance(function(d) {
-      return d.target._children ? 100 : 30;
-    })
+    .linkDistance(30)
     .size([width, height]);
 
 var svg = d3.select("#artist-d3").append("svg")
     .attr("width", width)
-    .attr("height", height);
+    .attr("height", height)
+    .append('g')
+    .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom))
+    .append("g");
 
+function zoom() {
+  svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
 
 // function to resume playing sim
 function resume_artists_network(){
@@ -73,8 +79,6 @@ function start_artists_network(){
       .data(nodes)
     .enter().append("g")
       .attr("class", "node")
-      .on("mouseover", mouseover)
-      .on("mouseout", mouseout)
       .call(force.drag);
 
     node.append("circle")
@@ -99,15 +103,16 @@ function start_artists_network(){
       .start();
 
     // initialize node placement  
-    force.on("tick", function() {
-      link.attr("x1", function(d) { return d.source.x; })
+      force.on("tick", function() {
+
+        link.attr("x1", function(d) { return d.source.x; })
           .attr("y1", function(d) { return d.source.y; })
           .attr("x2", function(d) { return d.target.x; })
           .attr("y2", function(d) { return d.target.y; });
 
-     node
-        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+          node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
     });
+
 
     // handlers to change node colors
     $('#artist-color').on('change', function() {
@@ -139,3 +144,5 @@ function start_artists_network(){
 
   });
 }
+
+

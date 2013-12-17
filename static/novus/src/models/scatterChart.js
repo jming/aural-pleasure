@@ -27,7 +27,7 @@ nv.models.scatterChart = function() {
     , showXAxis    = true
     , showYAxis    = true
     , rightAlignYAxis = false
-    , showControls = !!d3.fisheye
+    , showControls = false//!!d3.fisheye
     , fisheye      = 0
     , pauseFisheye = false
     , tooltips     = true
@@ -183,7 +183,7 @@ nv.models.scatterChart = function() {
       // Legend
 
       if (showLegend) {
-        var legendWidth = (showControls) ? availableWidth / 2 : availableWidth;
+        var legendWidth =  availableWidth;
         legend.width(legendWidth);
 
         wrap.select('.nv-legendWrap')
@@ -207,10 +207,10 @@ nv.models.scatterChart = function() {
       // Controls
 
       if (showControls) {
-        controls.width(180).color(['#444']);
+        controls.width(30).color(['#444']);
         g.select('.nv-controlsWrap')
             .datum(controlsData)
-            .attr('transform', 'translate(0,' + (-margin.top) +')')
+            .attr('transform', 'translate(0,' + (-margin.top+100) +')')
             .call(controls);
       }
 
