@@ -28,6 +28,11 @@ var svg = d3.select("#artist-d3").append("svg")
     .attr("width", width)
     .attr("height", height);
 
+var legend = selected_svg.selectAll(".legend")
+  .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
 
 // function to resume playing sim
 function resume_artists_network(){

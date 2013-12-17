@@ -11,6 +11,8 @@
 
 // basic color schemes for the nodes
 var colors = ['#9CF', '#FC9', '#FC9', '#99F', '#C9F', '#F9F', '#9FF', '#5CADFF', '#1F8FFF', '#F9C', '#9FC', '#F8F1F', '#FFAD5C', '#F99', '#9F9', '#CF9', '#FF9', '#FC9', '#FC9']
+var colors_num = d3.range(colors.length)
+var colors_basic = d3.scale.ordinal().range(colors)
 var more_colors = ['#4DA6FF', '#4D4DFF', '#A64DFF', '#FF4DFF', '#4DFFFF', '#0F87FF', '#0069D1', '#FF4DA6', '#4DFFA6', '#D16900', '#FF870F', '#FF4D4D', '#4DFF4D', '#A6FF4D', '#FFFF4D', '#FFA64D', '#FFF', '#000']
 var genre_colors = colors.concat(more_colors)
 var genres = ['randb-soul', 'easy-listening', 'pop', 'dance', 'soundtrack', 'jazz', 'rock', 'compilation', 'electronic', 'electronica', 'downtempo', 'alternative-indie', 'punk', 'alternative', 'reggae', 'dubstep', '2000s', 'live', 'blues', 'house', 'children', 'drum-and-bass', 'pop-rock', 'country', 'folk', 'tech-house', 'hard-rock-metal', 'hip-hop-rap', 'trance', 'spoken-word', 'no-genre', 'techno', 'deep-house', 'holiday']
@@ -149,16 +151,42 @@ function calcSize(min, max, x) {
 function colorNodes(type, node) {
 
   var color_scheme = $('#' + type + '-color').val();
+  var selected_svg = (type == 'artist') ? svg : svg_playlist;
 
   if (color_scheme == 'none') {
-    node.select('circle').style('fill', DEFAULT_COLOR)
+    node.select('circle').style('fill', DEFAULT_COLOR);
+    selected_svg.selectAll('.legend').remove();
   }
 
   // color by modularity
   if (color_scheme == 'modularity') {
+
     node.select('circle').style('fill', function(d) { 
       return colors[d.modularity]; 
-    })
+    });
+
+    selected_svg.selectAll('.legend').remove();
+
+    var legend = selected_svg.selectAll(".legend")
+      .data(d3.range(colors.length))
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+    legend.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", function(d) {
+          return colors[d];
+        });
+
+    legend.append("text")
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
   }
 
   // color by genre
@@ -166,14 +194,61 @@ function colorNodes(type, node) {
     node.select('circle').style('fill', function(d) { 
       var ind = genres.indexOf(d.genre)
       return genre_colors[ind]; 
-    })
+    });
+
+    selected_svg.selectAll('.legend').remove();
+
+    var legend = selected_svg.selectAll(".legend")
+      .data(genres)
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+    legend.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", function(d) {
+          var ind = genres.indexOf(d)
+          return genre_colors[ind];
+        });
+
+    legend.append("text")
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
   }
 
   if (color_scheme == 'year') {
     node.select('circle').style('fill', function(d) {
       console.log(d.year, color_gradient[d.year-1982]);
       return color_gradient[d.year-1982];
-    })
+    });
+
+    selected_svg.selectAll('.legend').remove();
+
+    var legend = selected_svg.selectAll(".legend")
+      .data(d3.range(1982,2012))
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+    legend.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", function(d) {
+          return color_gradient[d-1982];
+        });
+
+    legend.append("text")
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
   }
 }
 
