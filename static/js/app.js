@@ -11,7 +11,6 @@
 
 // basic color schemes for the nodes
 var colors = ['#9CF', '#FC9', '#FC9', '#99F', '#C9F', '#F9F', '#9FF', '#5CADFF', '#1F8FFF', '#F9C', '#9FC', '#F8F1F', '#FFAD5C', '#F99', '#9F9', '#CF9', '#FF9', '#FC9', '#FC9']
-var colors_num = d3.range(colors.length)
 var colors_basic = d3.scale.ordinal().range(colors)
 var more_colors = ['#4DA6FF', '#4D4DFF', '#A64DFF', '#FF4DFF', '#4DFFFF', '#0F87FF', '#0069D1', '#FF4DA6', '#4DFFA6', '#D16900', '#FF870F', '#FF4D4D', '#4DFF4D', '#A6FF4D', '#FFFF4D', '#FFA64D', '#FFF', '#000']
 var genre_colors = colors.concat(more_colors)
@@ -167,8 +166,10 @@ function colorNodes(type, node) {
 
     selected_svg.selectAll('.legend').remove();
 
+    var legend_data = (type == 'artist') ? d3.range(18) : d3.range(6)
+
     var legend = selected_svg.selectAll(".legend")
-      .data(d3.range(colors.length))
+      .data(legend_data)
     .enter().append("g")
       .attr("class", "legend")
       .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
