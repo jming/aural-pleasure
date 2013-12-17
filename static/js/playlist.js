@@ -80,14 +80,14 @@ function start_user_preferences_network(){
     node.append("title")
       .text(function(d) { return d.name; });
 
-    node.append("text")
-      .attr("x", 12)
-      .attr("dy", ".35em")
-      .text(function(d) { 
-        var str = d.id
-        return str; 
-      })
-      .style({opacity: '0.0'});
+    // node.append("text")
+    //   .attr("x", 12)
+    //   .attr("dy", ".35em")
+    //   .text(function(d) { 
+    //     var str = d.id
+    //     return str; 
+    //   })
+    //   .style({opacity: '0.0'});
 
     node.attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
@@ -123,21 +123,32 @@ function start_user_preferences_network(){
       sizeNodes('playlist', node);
     })
 
+    $('svg circle').tipsy({ 
+        gravity: 's', 
+        html: true, 
+        title: function() {
+          var d = this.__data__;
+          var label = d.label.replace('(','').replace(')','')
+          // console.log('tipsy', d);
+          return label; 
+        }
+      });
+
     // handles moving mouse to node
     function mouseover() {
       d3.select(this).select("circle").transition()
         .duration(200)
         .attr("r", 16);
-      d3.select(this).select('text').transition()
-        .duration(200)
-        .style({opacity: 1.0});
+      // d3.select(this).select('text').transition()
+      //   .duration(200)
+      //   .style({opacity: 1.0});
     }
 
     // handles moving mouse from node
     function mouseout() {
-      d3.select(this).select('text').transition()
-        .duration(200)
-        .style({opacity: 0.0});
+      // d3.select(this).select('text').transition()
+      //   .duration(200)
+      //   .style({opacity: 0.0});
       sizeNodes('playlist', node);
     }
 

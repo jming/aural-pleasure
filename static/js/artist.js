@@ -119,7 +119,7 @@ function start_artists_network(){
     })
 
     $('svg circle').tipsy({ 
-        gravity: 'w', 
+        gravity: 's', 
         html: true, 
         title: function() {
           var d = this.__data__;
