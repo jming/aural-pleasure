@@ -22,31 +22,24 @@ var force_playlist = d3.layout.force()
     .linkDistance(100)
     .size([width_playlist, height_playlist]);
 
-var svg_playlist = d3.select("#playlist-d3").append("svg")
+var svg_playlist2 = d3.select("#playlist-d3").append("svg")
     .attr("width", width_playlist)
-    .attr("height", height_playlist)
-    .append('g')
-    .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom_playlist));
+    .attr("height", height_playlist);
+
+var svg_playlist = svg_playlist2.append("svg")
+     .attr("class", "pane")
+     .attr("width", width_playlist)
+     .attr("height", height_playlist)
+     .attr("cursor", "move")
+     .attr("fill", "none")
+     .attr("pointer-events", "all")
+     .append('g')
+     .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom_playlist));
 
 function zoom_playlist() {
   console.log('event',d3.event);
   svg_playlist.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 }
-  // svg_playlist.attr("height", height_playlist);
-
-// var svg_playlist = svg_playlist2.append("svg")
-//      .attr("class", "pane")
-//      .attr("width", width_playlist)
-//      .attr("height", height_playlist)
-//      .attr("cursor", "move")
-//      .attr("fill", "none")
-//      .attr("pointer-events", "all")
-//      .append('g')
-//      .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
-
-// function zoom() {
-//   
-// }
 
 // function to resume playing sim
 function resume_user_preferences_network(){
