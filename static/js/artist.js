@@ -41,11 +41,7 @@ var svg = svg2.append("svg")
      .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
 
 function zoom() {
-<<<<<<< HEAD
   console.log('zoomevent',d3.event);
-=======
-  console.log('asdfas');
->>>>>>> 43811e491c12e041810ea0ed5d546769b4c16f40
   svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 }
 
