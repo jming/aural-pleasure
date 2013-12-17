@@ -79,14 +79,14 @@ function start_artists_network(){
     node.append("circle")
       .attr("r", MIN_NODE);
 
-    node.append("text")
-      .attr("x", 12)
-      .attr("dy", ".35em")
-      .text(function(d) { 
-        var str = d.name
-        return str; 
-      })
-      .style({opacity: '0.0'});
+    // node.append("text")
+    //   .attr("x", 12)
+    //   .attr("dy", ".35em")
+    //   .text(function(d) { 
+    //     var str = d.name
+    //     return str; 
+    //   })
+    //   .style({opacity: '0.0'});
 
     colorNodes('artist', node);
     sizeNodes('artist', node);
@@ -118,14 +118,38 @@ function start_artists_network(){
       sizeNodes('artist', node);
     })
 
+    $('svg circle').tipsy({ 
+        gravity: 'w', 
+        html: true, 
+        title: function() {
+          var d = this.__data__;
+          // console.log('tipsy', d);
+          return d.name; 
+        }
+      });
+
     // function to handle mouseover expansion of circle and display of text
     function mouseover() {
       d3.select(this).select("circle")
         .transition().duration(200)
         .attr("r", 16);
-      d3.select(this).select('text').transition()
-        .duration(200)
-        .style({opacity: 1.0});
+      // d3.select(this).append('text')
+      //   .attr('x', 12)
+      //   .attr('dy', '.35em')
+      //   .text(function(d) {
+      //     return 'derp'
+      //   });
+      // d3.select(this).append("text")
+      //   .attr("x", 12)
+      //   .attr("dy", ".35em")
+      //   .text(function(d) { 
+      //     var str = d.name
+      //     return str; 
+      //   })
+      // .style({opacity: '0.0'}))
+      // d3.select(this).select('text').transition()
+      //   .duration(200)
+      //   .style({opacity: 1.0});
     }
 
     // function to handle mouseout shrinking of circle and hiding of text
