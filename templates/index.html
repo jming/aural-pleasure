@@ -55,6 +55,16 @@
         position:absolute;*/
       }
 
+      img.screenshot{
+        cursor: pointer; 
+        width: 100%;
+        position:absolute;
+      }
+
+      svg{
+        cursor: all-scroll;
+      }
+
       .featurette-heading{
         margin-top: 50px;
       }
@@ -263,7 +273,7 @@
       <div class="row featurette">
         <!-- artist d3 graph -->
         <div class="col-md-7" id="artist-d3" >
-          <img style="position: absolute; margin-top:50px;" onclick="start_artists_network();" src="../static/resources/ss_artist.png" width="600"/>
+          <img class="screenshot" onclick="start_artists_network();" src="../static/resources/ss_artist.png" />
         </div>
         <!-- artist description -->
         <div class="col-md-5">
@@ -352,7 +362,7 @@
         </div>
         <!-- user d3 graph -->
         <div class="col-md-7" id='playlist-d3'>
-          <img style="position: absolute;  margin-top:50px;" onclick='start_user_preferences_network();' src="../static/resources/ss_playlist.png" width="600"/>
+          <img class="screenshot" onclick='start_user_preferences_network();' src="../static/resources/ss_playlist.png"/>
         </div>
       </div>
 
