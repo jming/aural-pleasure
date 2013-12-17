@@ -31,6 +31,7 @@ var svg = d3.select("#artist-d3").append("svg")
     .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
 
 function zoom() {
+  console.log('zoomevent',d3.event);
   svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 }
 

@@ -26,11 +26,10 @@ var svg_playlist = d3.select("#playlist-d3").append("svg")
     .attr("width", width_playlist)
     .attr("height", height_playlist)
     .append('g')
-    .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom))
-    .append('g');
+    .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom_playlist));
 
-function zoom() {
-  console.log(d3.event);
+function zoom_playlist() {
+  console.log('event',d3.event);
   svg_playlist.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 }
 
