@@ -151,7 +151,7 @@ function calcSize(min, max, x) {
 function colorNodes(type, node) {
 
   var color_scheme = $('#' + type + '-color').val();
-  var selected_svg = (type == 'artist') ? svg : svg_playlist;
+  var selected_svg = (type == 'artist') ? svg2 : svg_playlist2;
 
   if (color_scheme == 'none') {
     node.select('circle').style('fill', DEFAULT_COLOR);

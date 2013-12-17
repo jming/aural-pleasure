@@ -24,14 +24,28 @@ var force = d3.layout.force()
     .linkDistance(100)
     .size([width, height]);
 
-var svg = d3.select("#artist-d3").append("svg")
+var svg2 = d3.select("#artist-d3").append("svg")
     .attr("width", width)
-    .attr("height", height)
-    .append('g')
-    .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
+    .attr("height", height);
+    //.append('g')
+    //.call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
+
+var svg = svg2.append("svg")
+     .attr("class", "pane")
+     .attr("width", width)
+     .attr("height", height)
+     .attr("cursor", "move")
+     .attr("fill", "none")
+     .attr("pointer-events", "all")
+     .append('g')
+     .call(d3.behavior.zoom().scaleExtent([1, 8]).on("zoom", zoom));
 
 function zoom() {
+<<<<<<< HEAD
   console.log('zoomevent',d3.event);
+=======
+  console.log('asdfas');
+>>>>>>> 43811e491c12e041810ea0ed5d546769b4c16f40
   svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 }
 
